@@ -4,8 +4,22 @@ import people from "../assets/img/people.svg";
 import google from "../assets/img/google.svg";
 import facebook from "../assets/img/facebook.svg";
 import Footer from "../assets/component/content/Footer";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  function processLogin(e) {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    if (name === "admin" && email === "admin@mail.com" && password === "1234") {
+      window.alert("Login Success!");
+      navigate("/event");
+    } else {
+      window.alert("Wrong email or password!");
+    }
+  }
   return (
     <div>
       <div className="flex mb-[100px]">
@@ -25,7 +39,7 @@ function Login() {
           <div className="text-sm text-[#373A42] tracking-[0.5px] mb-[50px]">
             Hi, Welcome back to Urticket!
           </div>
-          <form>
+          <form onSubmit={processLogin}>
             <div className="flex justify-center flex-col gap-[15px]">
               <div>
                 <input

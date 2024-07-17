@@ -7,7 +7,7 @@ import x from "../../img/sosmed-x.svg";
 
 function Footer() {
   return (
-    <div className="pl-[216px] pr-[216px] w-full">
+    <div className="pl-[216px] pr-[216px] w-full pb-[36px]">
       <div className="flex gap-[10px] mb-[76px]">
         <div className="w-2/5">
           <div className="mb-[30px] ">
@@ -89,7 +89,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="font-semibold text-[#5A7184] tracking-[1px] mb-[68px]">
+      <div className="font-semibold text-[#5A7184] tracking-[1px]">
         &copy; 2020 Wetick All Rights Reserved
       </div>
     </div>

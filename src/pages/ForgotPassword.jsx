@@ -21,12 +21,11 @@ function Login() {
   function processLogin(e) {
     e.preventDefault();
     const email = e.target.email.value;
-    const password = e.target.password.value;
-    if (email === "admin@mail.com" && password === "1234") {
-      window.alert("Login Success!");
-      navigate("/");
+    if (email === "admin@mail.com") {
+      window.alert("Check Your Email!");
+      navigate("/login");
     } else {
-      window.alert("Wrong email or password!");
+      window.alert("Your Email not Register");
     }
   }
   return (
@@ -44,10 +43,10 @@ function Login() {
             </Link>
           </div>
           <div className="tracking-[1px] text-[#373A42] text-2xl font-semibold mb-[15px]">
-            Sign In
+            Forgot Password
           </div>
           <div className="text-sm text-[#373A42] tracking-[0.5px] mb-[50px]">
-            Hi, Welcome back to Urticket!
+            You’ll get mail soon on your email
           </div>
           <form onSubmit={processLogin}>
             <div className="flex justify-center flex-col gap-[15px]">
@@ -61,49 +60,12 @@ function Login() {
                 />
               </div>
               <div className="">
-                <div className="flex w-full items-center border-2 h-14 px-6 rounded-2xl overflow-hidden ">
-                  <input
-                    type={pass}
-                    name="password"
-                    id="password"
-                    placeholder="Password"
-                    className="flex-1 outline-none"
-                  />
-                  <button type="button" onClick={changePassword} className="">
-                    <img src={eye} alt="" />
-                  </button>
-                </div>
-              </div>
-              <Link
-                to="/forgot-password"
-                className="text-[#3366FF] text-sm font-semibold text-end tracking-[1px] mb-[25px]"
-              >
-                Forgot Password?
-              </Link>
-              <div className="">
                 <button
                   type="submit"
                   className="h-[55px] border w-full bg-[#3366FF] text-[#FFFFFF] rounded-[15px] tracking-[1px] mb-[50px]"
                 >
-                  Sign In
+                  Send
                 </button>
-              </div>
-              <div className="text-sm text-center text-[#373A42] tracking-[0.5px] mb-[15px]">
-                or sign in with
-              </div>
-              <div className="flex gap-[16px] mb-[136px] justify-center">
-                <div className="">
-                  <img
-                    src={google}
-                    className="pb-[14px] pt-[14px] pr-[36px] pl-[36px] border border-[#3366FF] border-solid rounded-[8px]"
-                  />
-                </div>
-                <div className="">
-                  <img
-                    src={facebook}
-                    className="pb-[14px] pt-[14px] pr-[36px] pl-[36px] border border-[#3366FF] border-solid rounded-[8px]"
-                  />
-                </div>
               </div>
             </div>
           </form>

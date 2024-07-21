@@ -5,7 +5,8 @@ import google from "../assets/img/google.svg";
 import eye from "../assets/img/eyes.svg";
 import facebook from "../assets/img/facebook.svg";
 import Footer from "../assets/component/content/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
@@ -18,15 +19,38 @@ function Login() {
       setPassword("password");
     }
   }
+  let [confirmpass, confirmPasswords] = React.useState("password");
+  function confirmPassword() {
+    if (confirmpass === "password") {
+      confirmPasswords("text");
+    } else {
+      confirmPasswords("password");
+    }
+  }
   function processLogin(e) {
     e.preventDefault();
+    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    if (email === "admin@mail.com" && password === "1234") {
-      window.alert("Login Success!");
-      navigate("/");
+    const confirmPass = e.target.confirmPass.value;
+
+    if (name !== "") {
+      if (email !== "") {
+        if (password !== "") {
+          if (confirmPass === password) {
+            navigate("/login");
+            window.alert("Registration Success! Please Log In");
+          } else {
+            window.alert("Password and Confirm Password Must same!");
+          }
+        } else {
+          window.alert("You must fill the password!");
+        }
+      } else {
+        window.alert("You must fill the email!");
+      }
     } else {
-      window.alert("Wrong email or password!");
+      window.alert("You must fill the name!");
     }
   }
   return (
@@ -44,13 +68,25 @@ function Login() {
             </Link>
           </div>
           <div className="tracking-[1px] text-[#373A42] text-2xl font-semibold mb-[15px]">
-            Sign In
+            Sign Up
           </div>
-          <div className="text-sm text-[#373A42] tracking-[0.5px] mb-[50px]">
-            Hi, Welcome back to Urticket!
+          <div className="text-sm flex gap-2 tracking-[0.5px] mb-[50px]">
+            <div className="text-[#373A42] ">Already have an account?</div>
+            <Link to="/login" className="text-[#3366FF] font-semibold">
+              Log In
+            </Link>
           </div>
           <form onSubmit={processLogin}>
             <div className="flex justify-center flex-col gap-[15px]">
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Full Name"
+                  className="w-full rounded-[15px] h-[55px] border border-[#C1C5D0] border-solid rounded-[15px] justify-center pl-[25px] pr-[25px] tracking-[1px]"
+                />
+              </div>
               <div>
                 <input
                   type="email"
@@ -74,12 +110,33 @@ function Login() {
                   </button>
                 </div>
               </div>
-              <Link
-                to="/forgot-password"
-                className="text-[#3366FF] text-sm font-semibold text-end tracking-[1px] mb-[25px]"
-              >
-                Forgot Password?
-              </Link>
+              <div className="">
+                <div className="flex w-full items-center border-2 h-14 px-6 rounded-2xl overflow-hidden ">
+                  <input
+                    type={confirmpass}
+                    name="confirmPass"
+                    id="confirmPass"
+                    placeholder="Confirm Password"
+                    className="flex-1 outline-none"
+                  />
+                  <button type="button" onClick={confirmPassword} className="">
+                    <img src={eye} alt="" />
+                  </button>
+                </div>
+              </div>
+              <div className="flex gap-2 items-center">
+                <div>
+                  <input type="checkbox" name="accept" id="accept" />
+                </div>
+                <div className="">
+                  <label
+                    htmlFor="accept"
+                    className="text-[#373A42] text-sm tracking-[1px] mb-[25px]"
+                  >
+                    Accept terms and condition
+                  </label>
+                </div>
+              </div>
               <div className="">
                 <button
                   type="submit"

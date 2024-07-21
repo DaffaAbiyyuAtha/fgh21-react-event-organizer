@@ -1,10 +1,9 @@
 import React from "react";
 import Logo from "../content/Logo";
-import profile from "../../img/profile.svg";
 import { Link } from "react-router-dom";
 import toggle from "../../img/toggle.svg";
 
-function Navbar() {
+function NavbarHome() {
   const [open, setOpen] = React.useState(true);
   function toggles() {
     if (open === true) {
@@ -14,15 +13,15 @@ function Navbar() {
     }
   }
   return (
-    <div className="bg-white p-4 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
-      <div className="flex justify-between">
-        <Link to="/" className="flex justify-between items-center">
+    <div className="p-4 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
+      <Link to="/" className="flex justify-between items-center">
+        <div>
           <Logo />
-        </Link>
+        </div>
         <button type="button" onClick={toggles} className="md:hidden">
           <img src={toggle} alt="" />
         </button>
-      </div>
+      </Link>
       <div
         className={
           open
@@ -44,28 +43,27 @@ function Navbar() {
         </div>
       </div>
       <div
-        className={
-          open
-            ? "flex flex-col justify-center items-center md:flex-row gap-6"
-            : "md:flex gap-6 hidden"
-        }
+        className={open ? "flex flex-col gap-4 md:flex-row" : " md:flex hidden"}
       >
-        <Link to="/profile" className="flex justify-center">
-          <div className="flex items-center gap-[8px]">
-            <div className="rounded-full">
-              <img
-                src={profile}
-                className="rounded-full border-2 border-[#3366FF] "
-              />
-            </div>
-
-            <div className="text-sm tracking-[1px] text-[#373A42] font-semibold">
-              Jhon Tomson
-            </div>
-          </div>
+        <Link to="/login" className="">
+          <button
+            type="button"
+            className="h-10 md:w-40 
+            w-full text-[#373A42] rounded-lg text-sm tracking-wider"
+          >
+            Log In
+          </button>
+        </Link>
+        <Link to="/sign-up" className="">
+          <button
+            type="button"
+            className="h-10 md:w-40 w-full bg-[#3366FF] text-white rounded-lg text-sm tracking-wider"
+          >
+            Sign Up
+          </button>
         </Link>
       </div>
     </div>
   );
 }
-export default Navbar;
+export default NavbarHome;

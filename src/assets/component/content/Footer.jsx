@@ -7,9 +7,9 @@ import x from "../../img/sosmed-x.svg";
 
 function Footer() {
   return (
-    <div className="pl-[216px] pr-[216px] w-full pb-[36px]">
-      <div className="flex gap-[10px] mb-[76px]">
-        <div className="w-2/5">
+    <div className="md:pl-[216px] md:pr-[216px] p-10 w-full pb-[36px]">
+      <div className="flex flex-col md:flex-row gap-[10px] mb-[76px]">
+        <div className="md:w-2/5">
           <div className="mb-[30px] ">
             <Logo />
           </div>
@@ -31,7 +31,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="w-1/5">
+        <div className="mb:w-1/5">
           <div className="font-semibold tracking-[1px] text-[#373A42] mb-[20px]">
             Wetick
           </div>
@@ -51,7 +51,7 @@ function Footer() {
             Mobile App
           </div>
         </div>
-        <div className="w-1/5">
+        <div className="mb:w-1/5">
           <div className="font-semibold tracking-[1px] text-[#373A42] mb-[20px]">
             Features
           </div>
@@ -68,7 +68,7 @@ function Footer() {
             Register
           </div>
         </div>
-        <div className="w-1/5">
+        <div className="mb:w-1/5">
           <div className="font-semibold tracking-[1px] text-[#373A42] mb-[20px]">
             Company
           </div>

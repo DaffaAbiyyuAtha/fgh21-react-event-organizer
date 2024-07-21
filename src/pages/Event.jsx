@@ -14,14 +14,67 @@ import { Link } from "react-router-dom";
 
 function Event() {
   return (
-    <div className="bg-[#F4F7FF]">
+    <div className="md:bg-[#F4F7FF]">
       <div className="navbar">
         <Navbar />
       </div>
       <div className="">
-        <div className="flex mt-[48px] mr-[120px] ml-[120px] mb-[100px] bg-white rounded-[30px] p-[100px]">
-          <div className=" w-2/5 h-[486px] mr-[88px] ">
-            <div className="flex relative w-full h-full overflow-hidden rounded-[40px] relative mb-[52px] overflow-hidden">
+        <div className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px] ">
+          <img
+            src={museum}
+            alt=""
+            className=" h-full w-full object-cover md:hidden"
+          />
+          <div className="flex flex-col px-5 py-24 justify-center absolute bg-gradient-to-t from-[black] to-[transparent] w-full h-full ">
+            <div className="flex justify-between ">
+              <div className="text-white text-2xl tracking-widest font-semibold mb-4">
+                Sights & Sounds Exhibition
+              </div>
+              <div className="">
+                <img src={favorite} alt="" className="h-6 w-6" />
+              </div>
+            </div>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="">
+                <img src={location} alt="" />
+              </div>
+              <div className="text-white tracking-wide font-medium text-sm ">
+                Jakarta, Indonesia
+              </div>
+            </div>
+            <div className="flex items-center gap-2 mb-6">
+              <div className="">
+                <img src={clock} alt="" />
+              </div>
+              <div className="text-white tracking-wide font-medium text-sm">
+                Wed, 15 Nov, 4:00 PM
+              </div>
+            </div>
+            <div className="text-white mb-2">Attendees</div>
+            <div className="">
+              <div className="flex mb-[8px]">
+                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#3366FF] overflow-hidden">
+                  <img src={profile1} alt="" />
+                </div>
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#3366FF] overflow-hidden">
+                  <img src={profile2} alt="" />
+                </div>
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#3366FF] overflow-hidden">
+                  <img src={profile3} alt="" />
+                </div>
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#3366FF] relative overflow-hidden">
+                  <img src={profile4} alt="" />
+                  <div className="absolute bg-[rgba(234,163,81,0.5)] h-full w-full text-white text-sm flex items-center justify-center top-0 left-0">
+                    62+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex mt-[48px] mb:mr-[120px] mb:ml-[120px] mb-[100px] bg-white mb:rounded-[30px] p-10 mb:p-[100px] ">
+          <div className="md:flex flex-col md:w-2/5 h-[486px] mr-[88px] hidden">
+            <div className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px] ">
               <img
                 src={museum}
                 alt=""
@@ -38,8 +91,8 @@ function Event() {
               </div>
             </div>
           </div>
-          <div className="w-3/5">
-            <div className="border-b-2 border-solid border-[rgba(193,197,208,0.25)] mb-[25px]">
+          <div className="md:w-3/5">
+            <div className=" md:flex flex-col border-b-2 border-solid border-[rgba(193,197,208,0.25)] mb-[25px] hidden">
               <div className="font-semibold text-2xl mb-[30px] tracking-[2px]">
                 Sights & Sounds<div>Exhibition</div>
               </div>
@@ -95,17 +148,17 @@ function Event() {
             <div className="text-xl tracking-[1px] text-[#373A42] mb-[16px]">
               Location
             </div>
-            <div>
+            <div className="w-full">
               <img
                 src={map}
                 alt=""
-                className="h-[152px] w-full max-w-[315px] rounded-[20px] mb-[50px]"
+                className="h-[152px] w-full md:max-w-[315px] object-cover rounded-[20px] mb-[50px]"
               />
             </div>
             <Link to="/ticket">
               <button
                 type="submit"
-                className="h-[55px] w-full max-w-[315px] bg-[#3366FF] rounde text-white rounded-[15px]"
+                className="h-[55px] w-full md:max-w-[315px] bg-[#3366FF] rounde text-white rounded-[15px]"
               >
                 Buy Tickets
               </button>

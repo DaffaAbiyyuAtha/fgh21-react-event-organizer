@@ -72,7 +72,7 @@ function Event() {
             </div>
           </div>
         </div>
-        <div className="flex mt-[48px] mb:mr-[120px] mb:ml-[120px] mb-[100px] bg-white mb:rounded-[30px] p-10 mb:p-[100px] ">
+        <div className="flex mt-[48px] md:m-16 m-10 bg-white rounded-[30px] p-10 md:p-24 ">
           <div className="md:flex flex-col md:w-2/5 h-[486px] mr-[88px] hidden">
             <div className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px] ">
               <img

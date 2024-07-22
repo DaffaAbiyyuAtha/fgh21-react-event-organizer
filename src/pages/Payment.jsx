@@ -14,7 +14,7 @@ function Payment() {
     <div className="md:bg-[#F4F7FF]">
       <Navbar />
       <div className="">
-        <div className="flex flex-col md:flex-row mt-[48px] md:mr-[120px] md:ml-[120px] mb-[100px] bg-white rounded-[30px] p-10">
+        <div className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-white rounded-[30px] p-10">
           <div className="md:w-1/2 h-[486px] md:mr-[88px] mb-20">
             <div className="text-[#373A42] tracking-[1px] font-semibold text-xl mb-[50px]">
               Payment Method
@@ -116,7 +116,7 @@ function Payment() {
             <div className="text-xl tracking-[1px] text-[#373A42] font-semibold mb-[50px]">
               Ticket Detail
             </div>
-            <div className="flex justify-between mb-[16px] md:block hidden">
+            <div className="md:flex justify-between mb-[16px] hidden">
               <div className="text-sm text-[#373A42] tracking-[0.5px] font-semibold">
                 Event
               </div>

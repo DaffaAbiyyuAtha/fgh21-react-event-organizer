@@ -14,7 +14,7 @@ function Navbar() {
     }
   }
   return (
-    <div className="bg-white p-4 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
+    <div className="bg-white py-4 px-10 md:px-16 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
       <div className="flex justify-between">
         <Link to="/" className="flex justify-between items-center">
           <Logo />
@@ -26,8 +26,8 @@ function Navbar() {
       <div
         className={
           open
-            ? "flex flex-col justify-center items-center md:flex-row gap-6"
-            : "md:flex gap-6 hidden"
+            ? "md:flex gap-6 hidden"
+            : "flex flex-col justify-center items-center md:flex-row gap-6"
         }
       >
         <Link
@@ -46,8 +46,8 @@ function Navbar() {
       <div
         className={
           open
-            ? "flex flex-col justify-center items-center md:flex-row gap-6"
-            : "md:flex gap-6 hidden"
+            ? "md:flex gap-6 hidden"
+            : "flex flex-col justify-center items-center md:flex-row gap-6"
         }
       >
         <Link to="/profile" className="flex justify-center">

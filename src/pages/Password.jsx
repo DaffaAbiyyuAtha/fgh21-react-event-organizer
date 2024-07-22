@@ -9,7 +9,7 @@ function Profile() {
       <div className="">
         <Navbar />
       </div>
-      <div className="md:flex mt-[50px] md:ml-[70px] md:mr-[70px] mb-[100px]">
+      <div className="md:flex m-16">
         <Sidebar />
         <div className="md:w-3/4 w-full bg-white rounded-[30px] p-10 md:p-[50px]">
           <div className="mb-[50px] text-xl font-semibold tracking-[1px]">

@@ -55,7 +55,7 @@ function Home() {
           </div>
           <div className="mb-[50px]">
             <div className="flex gap-11 justify-center">
-              <div className="flex flex-col gap-3 items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s ">
+              <div className="md:flex flex-col gap-3 items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hidden">
                 <div>13</div>
                 <div>Mon</div>
               </div>
@@ -74,14 +74,14 @@ function Home() {
                 <div>16</div>
                 <div>Thu</div>
               </div>
-              <div className="flex flex-col gap-3 items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s ">
+              <div className="md:flex flex-col gap-3 items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hidden">
                 <div>17</div>
                 <div>Fri</div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex gap-4 overflow-x-scroll mb-10 ml-10">
+        <div className="flex gap-4 overflow-x-scroll mb-10 ml-10 md:ml-16">
           <Link to="/event">
             <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative ">
               <img
@@ -468,16 +468,16 @@ function Home() {
           </Link>
         </div>
         <div className="w-full flex flex-col items-center">
-          <div>
+          <div className="w-full text-center">
             <button
               type="button"
-              className="border-2 tracking-[0.5px] border-[#3366FF] w-[255px] h-[40px] mb-[175px] rounded-2xl text-[#3366FF]"
+              className="border-2 tracking-[0.5px] border-[#3366FF] max-w-[255px] w-full h-[40px] mb-[175px] rounded-2xl text-[#3366FF]"
             >
               See All
             </button>
           </div>
           <div className="w-full mb-[175px]">
-            <div className="mx-5 bg-[#3366FF] rounded-2xl">
+            <div className="mx-10 md:mx-16 bg-[#3366FF] rounded-3xl">
               <div className="p-16">
                 <div className="flex justify-center mb-6 text-white items-center gap-4 w-[160px] h-[30px] text-center bg-[#668CFF] rounded-xl ">
                   <div className="before:content-['\2501']"></div>
@@ -551,7 +551,7 @@ function Home() {
                   </div>
                 </div>
                 <div className="w-full text-center" onClick={seeAll}>
-                  <button className="bg-white w-[255px] h-[40px] rounded-xl text-[#3366FF]">
+                  <button className="bg-white max-w-[255px] w-full h-[40px] rounded-xl text-[#3366FF]">
                     See All
                   </button>
                 </div>
@@ -566,7 +566,7 @@ function Home() {
               Browse Events By Category
             </div>
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-7 gap-14 mb-10">
+          <div className="grid grid-cols-3 md:grid-cols-7 w-full justify-between gap-10 m-10 md:m-16 text-center">
             <div className="underline text-[#3366FF] font-semibold">Music</div>
             <div className="text-[#C1C5D0] font-semibold">Arts</div>
             <div className="text-[#C1C5D0] font-semibold">Outdoors</div>
@@ -576,7 +576,7 @@ function Home() {
             <div className="text-[#C1C5D0] font-semibold">Fashion</div>
           </div>
         </div>
-        <div className="flex gap-6 items-center md:justify-center overflow-x-scroll">
+        <div className="flex gap-6 items-center md:justify-center m-10 overflow-x-scroll md:overflow-x-visible">
           <div className="md:w-[45px] md:h-[45px] md:shadow-md md:bg-white md:flex  items-center justify-center rounded-md hidden">
             <img src={arrowLeft} alt="" className="" />
           </div>
@@ -669,11 +669,11 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="bg-[#373A42] p-16 flex flex-col items-center mb-16">
+      <div className="bg-[#373A42] p-10 md:p-16 flex flex-col items-center mb-16">
         <div className="bg-[#979797] h-[30px] w-[150px] rounded-full text-xs tracking-[3px] font-semibold text-white flex gap-[10px] items-center justify-center before:content-['\2501'] mb-[25px] ">
           PARTNER
         </div>
-        <div className="font-semibold text-4xl text-white mb-5">
+        <div className="font-semibold text-center text-4xl text-white mb-5">
           Our Trusted Partners
         </div>
         <div className="text-[#C1C5D0] mb-8">By companies like :</div>

@@ -3,6 +3,7 @@ import Navbar from "../assets/component/content/Navbar";
 import Footer from "../assets/component/content/Footer";
 import Sidebar from "../assets/component/content/Sidebar";
 import profile from "../assets/img/profile.svg";
+import arrowDown from "../assets/img/arrow-down.svg";
 
 function Profile() {
   return (
@@ -10,7 +11,7 @@ function Profile() {
       <div className="">
         <Navbar />
       </div>
-      <div className="md:flex mt-[50px] md:ml-[70px] md:mr-[70px] mb-[100px]">
+      <div className="md:flex mt-[50px] m-10 md:16 mb-[100px]">
         <Sidebar />
         <div className="md:w-3/4 w-full bg-white rounded-[30px] p-10 md:p-[50px]">
           <div className="mb-[50px] text-xl font-semibold tracking-[1px]">
@@ -88,32 +89,38 @@ function Profile() {
                         <label htmlFor="female">Female</label>
                       </td>
                     </tr>
-                    <tr className="flex flex-col md:table-row">
-                      <td className="text-sm tracking-[1px] text-[#373A42]  pt-[32px]">
+                    <tr className="flex flex-col md:table-row gap-9 ">
+                      <td className="text-sm tracking-[1px] text-[#373A42] pt-[48px]">
                         Profession
                       </td>
-                      <td className=" pt-[32px]">
+                      <td className="flex w-full items-center border-2 h-14 mt-[48px] px-6 rounded-2xl overflow-hidden ">
                         <input
                           type="text"
                           name="profession"
                           id="profession"
                           placeholder="Entrepreneur"
-                          className="h-[55px] w-full border border-2 rounded-[16px] pl-[25px] pr-[25px]"
+                          className="flex-1 outline-none"
                         />
+                        <button type="button" className="">
+                          <img src={arrowDown} alt="" />
+                        </button>
                       </td>
                     </tr>
-                    <tr className="flex flex-col md:table-row">
-                      <td className="text-sm tracking-[1px] text-[#373A42]  pt-[16px]">
+                    <tr className="flex flex-col md:table-row gap-9">
+                      <td className="text-sm tracking-[1px] text-[#373A42] pt-[48px] pt-[16px]">
                         Nationality
                       </td>
-                      <td className=" pt-[16px]">
+                      <td className="flex w-full items-center border-2 h-14 px-6  mt-[48px] rounded-2xl overflow-hidden ">
                         <input
                           type="text"
                           name="nationality"
                           id="nationality"
                           placeholder="Indonesia"
-                          className="h-[55px] w-full border border-2 rounded-[16px] pl-[25px] pr-[25px]"
+                          className="flex-1 outline-none"
                         />
+                        <button type="button" className="">
+                          <img src={arrowDown} alt="" />
+                        </button>
                       </td>
                     </tr>
                     <tr className="flex flex-col md:table-row">

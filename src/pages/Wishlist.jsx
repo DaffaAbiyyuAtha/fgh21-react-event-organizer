@@ -12,7 +12,7 @@ function Wishlist() {
       </div>
       <div className="md:flex mt-[50px] md:ml-[70px] md:mr-[70px] mb-[100px] ">
         <Sidebar />
-        <div className="md:w-3/4 bg-white rounded-[30px] pb-12 px-10 md:p-[50px]">
+        <div className="md:w-3/4 bg-white rounded-[30px] pb-12 pl-10 md:p-[50px]">
           <div className="flex justify-between items-center">
             <div className="text-xl font-semibold tracking-[1px]">
               My Wishlist

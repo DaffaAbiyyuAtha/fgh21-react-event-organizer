@@ -12,6 +12,8 @@ import Popup from "./assets/component/content/Popup";
 import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateEvent from "./pages/CreateEvent";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -71,7 +73,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;

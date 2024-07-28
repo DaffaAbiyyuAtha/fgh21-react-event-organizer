@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 function Event() {
   return (
-    <div className="md:bg-[#F4F7FF]">
+    <div className="md:bg-[#9CDBA6]">
       <div className="navbar">
         <Navbar />
       </div>
@@ -72,7 +72,7 @@ function Event() {
             </div>
           </div>
         </div>
-        <div className="flex mt-[48px] md:m-16 m-10 bg-white rounded-[30px] p-10 md:p-24 ">
+        <div className="flex mt-[48px] md:m-16 m-10 bg-[#DEF9C4] rounded-[30px] p-10 md:p-24 ">
           <div className="md:flex flex-col md:w-2/5 h-[486px] mr-[88px] hidden">
             <div className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px] ">
               <img
@@ -86,14 +86,14 @@ function Event() {
               <div className="">
                 <img src={favorite} alt="" className="w-[36px] h-[36px]" />
               </div>
-              <div className="font-semibold text-xl text-[#373A42] tracking-[1px]">
+              <div className="font-semibold text-xl text-[#468585] tracking-[1px]">
                 Add to Wishlist
               </div>
             </div>
           </div>
           <div className="md:w-3/5">
             <div className=" md:flex flex-col border-b-2 border-solid border-[rgba(193,197,208,0.25)] mb-[25px] hidden">
-              <div className="font-semibold text-2xl mb-[30px] tracking-[2px]">
+              <div className="font-semibold text-2xl text-[#468585] mb-[30px] tracking-[2px]">
                 Sights & Sounds<div>Exhibition</div>
               </div>
               <div className="flex gap-[88px] mb-[30px]">
@@ -101,7 +101,7 @@ function Event() {
                   <div className="">
                     <img src={location} alt="" />
                   </div>
-                  <div className="text-[#373A42] font-medium text-sm">
+                  <div className="text-[#50B498] font-medium text-sm">
                     Jakarta, Indonesia
                   </div>
                 </div>
@@ -109,43 +109,43 @@ function Event() {
                   <div className="">
                     <img src={clock} alt="" />
                   </div>
-                  <div className="text-[#373A42] font-medium text-sm">
+                  <div className="text-[#50B498] font-medium text-sm">
                     Wed, 15 Nov, 4:00 PM
                   </div>
                 </div>
               </div>
-              <div className="text-sm tracking-[1px] font-medium text-[#373A42] mb-[28px]">
+              <div className="text-sm tracking-[1px] font-medium text-[#468585] mb-[28px]">
                 Attendees
               </div>
               <div className="flex mb-[8px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#3366FF] overflow-hidden">
+                <div className="h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile1} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#3366FF] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile2} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#3366FF] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile3} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#3366FF] relative overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] relative overflow-hidden">
                   <img src={profile4} alt="" />
-                  <div className="absolute bg-[rgba(234,163,81,0.5)] h-full w-full text-white text-sm flex items-center justify-center top-0 left-0">
+                  <div className="absolute bg-[rgba(234,163,81,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
                     62+
                   </div>
                 </div>
               </div>
             </div>
-            <div className="font-semibold tracking-[1px] text-xl mb-[16px]">
+            <div className="font-semibold tracking-[1px] text-[#468585] text-xl mb-[16px]">
               Event Detail
             </div>
-            <div className="text-xs text-[rgba(55,58,66,0.75)] mb-[12px]">
+            <div className="text-xs text-[#50B498] mb-[12px]">
               After his controversial art exhibition "Tear and Consume" back in
               November 2018, in which guests were invited to tear up…
             </div>
-            <div className="text-xs text-[#3366FF] font-medium mb-[25px]">
+            <div className="text-xs text-[#468585] underline font-medium mb-[25px]">
               Read More
             </div>
-            <div className="text-xl tracking-[1px] text-[#373A42] mb-[16px]">
+            <div className="text-xl tracking-[1px] text-[#468585] mb-[16px]">
               Location
             </div>
             <div className="w-full">
@@ -158,7 +158,7 @@ function Event() {
             <Link to="/ticket">
               <button
                 type="submit"
-                className="h-[55px] w-full md:max-w-[315px] bg-[#3366FF] rounde text-white rounded-[15px]"
+                className="h-[55px] w-full md:max-w-[315px] bg-[#468585] rounde text-[#DEF9C4] rounded-[15px]"
               >
                 Buy Tickets
               </button>

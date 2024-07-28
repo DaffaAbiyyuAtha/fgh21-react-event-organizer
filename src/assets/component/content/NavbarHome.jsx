@@ -35,9 +35,11 @@ function NavbarHome() {
         >
           <div className="">Home</div>
         </Link>
-        <div className="text-[#373A42] text-sm font-semibold tracking-wider">
-          Create Event
-        </div>
+        <Link to="/my-create-event">
+          <div className="text-[#373A42] text-sm font-semibold tracking-wider">
+            Create Event
+          </div>
+        </Link>
         <div className="text-[#373A42] text-sm font-semibold tracking-wider">
           Location
         </div>

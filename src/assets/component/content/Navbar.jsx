@@ -3,8 +3,11 @@ import Logo from "../content/Logo";
 import profile from "../../img/profile.svg";
 import { Link } from "react-router-dom";
 import toggle from "../../img/toggle.svg";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+  const dataProfile = useSelector((state) => state.profile.data);
+  const tokens = useSelector((state) => state.auth.token);
   const [open, setOpen] = React.useState(true);
   function toggles() {
     if (open === true) {
@@ -13,8 +16,9 @@ function Navbar() {
       setOpen(true);
     }
   }
+
   return (
-    <div className="bg-white py-4 px-10 md:px-16 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
+    <div className="bg-[#DEF9C4] py-4 px-10 md:px-16 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
       <div className="flex justify-between">
         <Link to="/" className="flex justify-between items-center">
           <Logo />
@@ -32,38 +36,68 @@ function Navbar() {
       >
         <Link
           to="/"
-          className="text-[#3366FF] text-sm font-semibold tracking-wider border-b-2 border-[#3366FF]"
+          className="text-[#468585] text-sm font-semibold tracking-wider border-b-2 border-[#468585]"
         >
           <div className="">Home</div>
         </Link>
-        <div className="text-[#373A42] text-sm font-semibold tracking-wider">
-          Create Event
-        </div>
-        <div className="text-[#373A42] text-sm font-semibold tracking-wider">
+        <Link to="/my-create-event">
+          <div className="text-[#50B498] text-sm font-semibold tracking-wider">
+            Create Event
+          </div>
+        </Link>
+        <div className="text-[#50B498] text-sm font-semibold tracking-wider">
           Location
         </div>
       </div>
-      <div
-        className={
-          open
-            ? "md:flex gap-6 hidden"
-            : "flex flex-col justify-center items-center md:flex-row gap-6"
-        }
-      >
-        <Link to="/profile" className="flex justify-center">
-          <div className="flex items-center gap-[8px]">
-            <div className="rounded-full">
-              <img
-                src={profile}
-                className="rounded-full border-2 border-[#3366FF] "
-              />
-            </div>
-
-            <div className="text-sm tracking-[1px] text-[#373A42] font-semibold">
-              Jhon Tomson
-            </div>
+      <div className="">
+        {tokens === null ? (
+          <div
+            className={
+              open ? "md:flex hidden" : "flex flex-col gap-4 md:flex-row"
+            }
+          >
+            <Link to="/login" className="">
+              <button
+                type="button"
+                className="h-10 md:w-40 
+            w-full text-[#50B498] rounded-lg text-sm tracking-wider"
+              >
+                Log In
+              </button>
+            </Link>
+            <Link to="/sign-up" className="">
+              <button
+                type="button"
+                className="h-10 md:w-40 w-full bg-[#468585] text-[#DEF9C4] rounded-lg text-sm tracking-wider"
+              >
+                Sign Up
+              </button>
+            </Link>
           </div>
-        </Link>
+        ) : (
+          <div
+            className={
+              open
+                ? "md:flex gap-6 hidden"
+                : "flex flex-col justify-center items-center md:flex-row gap-6"
+            }
+          >
+            <Link to="/profile" className="flex justify-center">
+              <div className="flex items-center gap-[8px]">
+                <div className="rounded-full">
+                  <img
+                    src={dataProfile.picture}
+                    className="rounded-full border-2 w-10 h-10 border-[#468585] "
+                  />
+                </div>
+
+                <div className="text-sm tracking-[1px] text-[#50B498] font-semibold">
+                  Jhon Tomson
+                </div>
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

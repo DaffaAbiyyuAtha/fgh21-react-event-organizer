@@ -1,49 +1,56 @@
 import React from "react";
 import profile from "../../img/profile.svg";
-import profileSide from "../../img/profile-side.svg";
-import profileCard from "../../img/profile-card.svg";
-import profilePassword from "../../img/profile-password.svg";
-import profileBooking from "../../img/profile-booking.svg";
-import profileList from "../../img/profile-list.svg";
-import profileSetting from "../../img/profile-setting.svg";
 import profileLogout from "../../img/profile-logout.svg";
 import profileCreate from "../../img/profile-create.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPen, FaUser, FaAddressCard, FaLockOpen } from "react-icons/fa";
 import { FaCirclePlus, FaBook, FaHeart, FaGear } from "react-icons/fa6";
+import { FaEraser } from "react-icons/fa6";
+import { logout } from "../../../redux/reducers/auth";
+import { removeData } from "../../../redux/reducers/profile";
+import { useDispatch, useSelector } from "react-redux";
 
 function Sidebar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dataProfile = useSelector((state) => state.profile.data);
+
+  function clearData() {
+    dispatch(logout());
+    dispatch(removeData());
+    navigate("/login");
+  }
   return (
-    <div className="hidden md:flex flex-col w-1/4">
+    <div className="hidden md:flex flex-col p-6">
       <div className="flex gap-[16px]">
         <div className="">
           <img
-            src={profile}
+            src={dataProfile.picture}
             alt=""
-            className="rounded-full border-2 border-[#3366FF]"
+            className="rounded-full border-2 w-12 h-12 border-[#468585]"
           />
         </div>
         <div className="flex flex-col gap-[8px] items-center mb-[50px]">
-          <div className="text-sm text-[#373A42] font-semibold ">
-            Jhon Tomson
+          <div className="text-sm text-[#468585] font-semibold ">
+            {dataProfile.name}
           </div>
-          <div className="text-xs text-[#666971]">Entrepreneur, ID</div>
+          <div className="text-xs text-[#DEF9C4]">Entrepreneur, ID</div>
         </div>
       </div>
-      <div className="flex gap-[24px] hover:text-[#3366FF] items-center text-[#373A42] tracking-[1px] font-semibold mb-[28px]">
+      <div className="flex gap-[24px] hover:text-[#468585] items-center text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
         <div className="">
           <FaUser />
         </div>
         <div className="">Profile</div>
       </div>
-      <div className="flex gap-[24px] text-[#373A42] hover:text-[#3366FF] items-center  tracking-[1px] font-semibold mb-[28px] pl-[50px]">
+      <div className="flex gap-[24px] text-[#DEF9C4] hover:text-[#468585] items-center  tracking-[1px] font-semibold mb-[28px] pl-[50px]">
         <div className="">
           <FaAddressCard />
         </div>
         <div className="">Card</div>
       </div>
       <Link to="/profile" className="">
-        <div className="flex gap-[24px] hover:text-[#3366FF] text-[#373A42] items-center tracking-[1px] font-semibold mb-[28px] pl-[50px]">
+        <div className="flex gap-[24px] hover:text-[#468585] text-[#DEF9C4] items-center tracking-[1px] font-semibold mb-[28px] pl-[50px]">
           <div className="">
             <FaPen />
           </div>
@@ -51,7 +58,7 @@ function Sidebar() {
         </div>
       </Link>
       <Link to="/change-password">
-        <div className="flex hover:text-[#3366FF] items-center gap-[24px] text-[#373A42] tracking-[1px] font-semibold mb-[28px] pl-[50px]">
+        <div className="flex hover:text-[#468585] items-center gap-[24px] text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px] pl-[50px]">
           <div className="">
             <FaLockOpen />
           </div>
@@ -59,7 +66,7 @@ function Sidebar() {
         </div>
       </Link>
       <Link to="/my-create-event">
-        <div className="hover:text-[#3366FF] items-center flex gap-[24px] text-[#373A42] tracking-[1px] font-semibold mb-[28px]">
+        <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
           <div className="">
             <FaCirclePlus />
           </div>
@@ -67,7 +74,7 @@ function Sidebar() {
         </div>
       </Link>
       <Link to="/my-booking">
-        <div className="hover:text-[#3366FF] items-center flex gap-[24px] text-[#373A42] tracking-[1px] font-semibold mb-[28px]">
+        <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
           <div className="">
             <FaBook />
           </div>
@@ -75,14 +82,14 @@ function Sidebar() {
         </div>
       </Link>
       <Link to="/my-wishlist">
-        <div className="hover:text-[#3366FF] items-center flex gap-[24px] text-[#373A42] tracking-[1px] font-semibold mb-[28px]">
+        <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
           <div className="">
             <FaHeart />
           </div>
           <div className="">My Wishlist</div>
         </div>
       </Link>
-      <div className="hover:text-[#3366FF] items-center flex gap-[24px] text-[#373A42] tracking-[1px] font-semibold mb-[28px]">
+      <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
         <div className="">
           <FaGear />
         </div>
@@ -92,7 +99,9 @@ function Sidebar() {
         <div className="">
           <img src={profileLogout} alt="" />
         </div>
-        <div className="text-[#F03800]">Logout</div>
+        <button onClick={clearData} className="text-[#F03800]">
+          Logout
+        </button>
       </div>
     </div>
   );

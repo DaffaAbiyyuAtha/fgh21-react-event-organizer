@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Popup() {
   return (
-    <div className="flex items-center justify-center bg-black/25 w-full h-screen relative">
-      <div className="bg-white pr-[52px] w-4/5 rounded-[30px] pl-[52px] absolute ">
-        <div className="pt-[32px] font-semibold tracking-[1px] mb-[44px]">
-          Create Event
-        </div>
+    <div className="bg-white pr-[52px] w-4/5 rounded-[30px] pl-[52px] absolute">
+      <div className="pt-[32px] font-semibold tracking-[1px] mb-[44px]">
+        Create Event
+      </div>
+      <form>
         <div className="w-full flex gap-[60px]">
           <div className="w-1/2">
             <label htmlFor="name" className="mb-[10px]">
@@ -115,7 +116,7 @@ function Popup() {
             Save
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

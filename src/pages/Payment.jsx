@@ -8,15 +8,16 @@ import payment from "../assets/img/payment.svg";
 import bank from "../assets/img/bank.svg";
 import retail from "../assets/img/retail.svg";
 import money from "../assets/img/money.svg";
+import { Link } from "react-router-dom";
 
 function Payment() {
   return (
-    <div className="md:bg-[#F4F7FF]">
+    <div className="md:bg-[#9CDBA6]">
       <Navbar />
       <div className="">
-        <div className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-white rounded-[30px] p-10">
+        <div className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-[#DEF9C4] rounded-[30px] p-10">
           <div className="md:w-1/2 h-[486px] md:mr-[88px] mb-20">
-            <div className="text-[#373A42] tracking-[1px] font-semibold text-xl mb-[50px]">
+            <div className="text-[#468585] tracking-[1px] font-semibold text-xl mb-[50px]">
               Payment Method
             </div>
             <label
@@ -32,7 +33,7 @@ function Payment() {
                     className="p-[10px] bg-[#E7DBFF] rounded-[10px]"
                   />
                 </span>
-                <span className="font-semibold tracking-[1px] text-sm">
+                <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   Card
                 </span>
               </div>
@@ -44,7 +45,7 @@ function Payment() {
               <div className="">
                 <img src={payment} alt="" />
               </div>
-              <div className="w-[45px] h-[45px] border border-dotted border-[#3366FF] text-3xl rounded-[10px] flex justify-center items-center text-[#3366FF]">
+              <div className="w-[45px] h-[45px] border border-dotted border-[#468585] text-3xl rounded-[10px] flex justify-center items-center text-[#468585]">
                 +
               </div>
             </div>
@@ -61,7 +62,7 @@ function Payment() {
                     className="p-[11px] bg-[#FECFDD] rounded-[10px]"
                   />
                 </span>
-                <span className="font-semibold tracking-[1px] text-sm">
+                <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   Bank Transfer
                 </span>
               </div>
@@ -82,7 +83,7 @@ function Payment() {
                     className="pt-[10px] pb-[10px] pl-[13px] pr-[13px] bg-[#FFE7CC] rounded-[10px]"
                   />
                 </span>
-                <span className="font-semibold tracking-[1px] text-sm">
+                <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   Retail
                 </span>
               </div>
@@ -103,7 +104,7 @@ function Payment() {
                     className="pt-[10px] pb-[10px] pl-[11px] pr-[11px] bg-[#D6E0FF] rounded-[10px]"
                   />
                 </span>
-                <span className="font-semibold tracking-[1px] text-sm">
+                <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   E-Money
                 </span>
               </div>
@@ -113,47 +114,49 @@ function Payment() {
             </label>
           </div>
           <div className="md:w-1/2 md:ml-[88px]">
-            <div className="text-xl tracking-[1px] text-[#373A42] font-semibold mb-[50px]">
+            <div className="text-xl tracking-[1px] text-[#468585] font-semibold mb-[50px]">
               Ticket Detail
             </div>
             <div className="md:flex justify-between mb-[16px] hidden">
-              <div className="text-sm text-[#373A42] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#468585] tracking-[0.5px] font-semibold">
                 Event
               </div>
-              <div className="text-sm text-[#3366FF] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
                 Sights & Sounds Exhibition
               </div>
             </div>
             <div className="flex justify-between gap-4 mb-[16px]">
-              <div className="text-sm text-[#373A42] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#468585] tracking-[0.5px] font-semibold">
                 Ticket Section
               </div>
-              <div className="text-sm text-[#3366FF] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
                 VIP
               </div>
             </div>
             <div className="flex justify-between mb-[16px]">
-              <div className="text-sm text-[#373A42] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#468585] tracking-[0.5px] font-semibold">
                 Quantity
               </div>
-              <div className="text-sm text-[#3366FF] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
                 2
               </div>
             </div>
             <div className="flex justify-between mb-[50px]">
-              <div className="text-sm text-[#373A42] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#468585] tracking-[0.5px] font-semibold">
                 Total Payment
               </div>
-              <div className="text-sm text-[#3366FF] tracking-[0.5px] font-semibold">
+              <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
                 $70
               </div>
             </div>
-            <button
-              type="submit"
-              className="w-full h-[50px] bg-[#3366FF] text-white rounded-[15px]"
-            >
-              Payment
-            </button>
+            <Link to="/my-booking">
+              <button
+                type="submit"
+                className="w-full h-[50px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
+              >
+                Payment
+              </button>
+            </Link>
           </div>
         </div>
       </div>

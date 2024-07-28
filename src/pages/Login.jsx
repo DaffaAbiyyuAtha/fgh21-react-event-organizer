@@ -5,11 +5,57 @@ import google from "../assets/img/google.svg";
 import eye from "../assets/img/eyes.svg";
 import facebook from "../assets/img/facebook.svg";
 import Footer from "../assets/component/content/Footer";
+import banner from "../assets/img/banner1.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/reducers/auth";
+import { datas } from "../redux/reducers/profile";
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  function processLogin(dataLogin) {
+    dataLogin.preventDefault();
+    const email = dataLogin.target.email.value;
+    const password = dataLogin.target.password.value;
+    const form = new URLSearchParams();
+    form.append("email", email);
+    form.append("password", password);
 
+    fetch("https://wsw6zh-8888.csb.app/auth/login", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success === true) {
+          window.alert(data.message);
+          dispatch(login(data.results.token));
+          async function profile() {
+            const dataProfile = await fetch(
+              "https://wsw6zh-8888.csb.app/profile",
+              {
+                headers: {
+                  Authorization: "Bearer " + data.results.token,
+                },
+              }
+            );
+            const listData = await dataProfile.json();
+            console.log(listData);
+
+            dispatch(datas(listData.results));
+
+            navigate("/");
+          }
+          profile();
+        } else {
+          window.alert(data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   let [pass, setPassword] = React.useState("password");
   function changePassword() {
     if (pass === "password") {
@@ -18,23 +64,23 @@ function Login() {
       setPassword("password");
     }
   }
-  function processLogin(e) {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    if (email === "admin@mail.com" && password === "1234") {
-      window.alert("Login Success!");
-      navigate("/");
-    } else {
-      window.alert("Wrong email or password!");
-    }
-  }
+  // function processLogin(e) {
+  //   e.preventDefault();
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+  //   if (email === "admin@mail.com" && password === "1234") {
+  //     window.alert("Login Success!");
+  //     navigate("/");
+  //   } else {
+  //     window.alert("Wrong email or password!");
+  //   }
+  // }
   return (
     <div>
       <div className="md:flex mb-[100px]">
-        <div className="md:flex md:w-2/3 bg-[#3366FF] justify-center items-center hidden">
+        <div className="md:flex md:w-2/3 bg-[#468585] justify-center items-center hidden">
           <div className="">
-            <img src={people} alt="" className="md:w-auto md:h-full " />
+            <img src={banner} alt="" className="md:w-auto md:h-full " />
           </div>
         </div>
         <div className="md:w-1/3 mt-[208px] p-10">
@@ -43,31 +89,31 @@ function Login() {
               <Logo />
             </Link>
           </div>
-          <div className="tracking-[1px] text-[#373A42] text-2xl font-semibold mb-[15px]">
+          <div className="tracking-[1px] text-[#468585] text-2xl font-semibold mb-[15px]">
             Sign In
           </div>
-          <div className="text-sm text-[#373A42] tracking-[0.5px] mb-[50px]">
+          <div className="text-sm text-[#50B498] tracking-[0.5px] mb-[50px]">
             Hi, Welcome back to Urticket!
           </div>
           <form onSubmit={processLogin}>
-            <div className="flex justify-center flex-col gap-[15px]">
-              <div>
+            <div className="flex justify-center border-[#468585] flex-col gap-[15px]">
+              <div className="border-[#468585] bg-transparent border-2 rounded-2xl">
                 <input
                   type="email"
                   name="email"
                   id="email"
                   placeholder="Email"
-                  className="w-full rounded-[15px] h-[55px] border border-[#C1C5D0] border-solid rounded-[15px] justify-center pl-[25px] pr-[25px] tracking-[1px]"
+                  className="w-full outline-none h-[55px] rounded-2xl border border-solid bg-transparent text-[#468585] justify-center pl-[25px] pr-[25px] tracking-[1px]"
                 />
               </div>
               <div className="">
-                <div className="flex w-full items-center border-2 h-14 px-6 rounded-2xl overflow-hidden ">
+                <div className="flex w-full items-center border-[#468585] bg-transparent border-2 h-14 px-6 rounded-2xl text-[#468585] overflow-hidden ">
                   <input
                     type={pass}
                     name="password"
                     id="password"
                     placeholder="Password"
-                    className="flex-1 outline-none"
+                    className="flex-1 outline-none bg-transparent"
                   />
                   <button type="button" onClick={changePassword} className="">
                     <img src={eye} alt="" />
@@ -76,32 +122,32 @@ function Login() {
               </div>
               <Link
                 to="/forgot-password"
-                className="text-[#3366FF] text-sm font-semibold text-end tracking-[1px] mb-[25px]"
+                className="text-[#3366FF] text-sm font-semibold text-end tracking-[1px] mb-[25px] text-[#468585]"
               >
                 Forgot Password?
               </Link>
               <div className="">
                 <button
                   type="submit"
-                  className="h-[55px] border w-full bg-[#3366FF] text-[#FFFFFF] rounded-[15px] tracking-[1px] mb-[50px]"
+                  className="h-[55px] border w-full bg-[#468585] text-[#DEF9C4] rounded-[15px] tracking-[1px] mb-[50px]"
                 >
                   Sign In
                 </button>
               </div>
-              <div className="text-sm text-center text-[#373A42] tracking-[0.5px] mb-[15px]">
+              <div className="text-sm text-center text-[#468585] tracking-[0.5px] mb-[15px]">
                 or sign in with
               </div>
               <div className="flex gap-[16px] mb-[136px] justify-center">
                 <div className="">
                   <img
                     src={google}
-                    className="pb-[14px] pt-[14px] pr-[36px] pl-[36px] border border-[#3366FF] border-solid rounded-[8px]"
+                    className="pb-[14px] pt-[14px] pr-[36px] pl-[36px] border border-[#468585] border-solid rounded-[8px]"
                   />
                 </div>
                 <div className="">
                   <img
                     src={facebook}
-                    className="pb-[14px] pt-[14px] pr-[36px] pl-[36px] border border-[#3366FF] border-solid rounded-[8px]"
+                    className="pb-[14px] pt-[14px] pr-[36px] pl-[36px] border border-[#468585] border-solid rounded-[8px]"
                   />
                 </div>
               </div>

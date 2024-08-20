@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../assets/component/content/Logo";
 import people from "../assets/img/people.svg";
 import google from "../assets/img/google.svg";
@@ -6,50 +6,57 @@ import eye from "../assets/img/eyes.svg";
 import facebook from "../assets/img/facebook.svg";
 import Footer from "../assets/component/content/Footer";
 import banner from "../assets/img/banner1.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/reducers/auth";
 import { datas } from "../redux/reducers/profile";
+import { FaEye } from "react-icons/fa6";
+import Loading from "../assets/component/content/Loading";
+import { data } from "autoprefixer";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function Login() {
+  const [wait, setWait] = React.useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [message, setMessage] = React.useState("");
   function processLogin(dataLogin) {
     dataLogin.preventDefault();
     const email = dataLogin.target.email.value;
     const password = dataLogin.target.password.value;
+
     const form = new URLSearchParams();
     form.append("email", email);
     form.append("password", password);
 
-    fetch("https://wsw6zh-8888.csb.app/auth/login", {
+    fetch("http://localhost:8080/auth/login", {
       method: "POST",
       body: form,
     })
       .then((response) => response.json())
       .then((data) => {
+        setWait(true);
         if (data.success === true) {
-          window.alert(data.message);
-          dispatch(login(data.results.token));
+          dispatch(login(data.result.token));
+          console.log(data.result.token);
           async function profile() {
-            const dataProfile = await fetch(
-              "https://wsw6zh-8888.csb.app/profile",
-              {
-                headers: {
-                  Authorization: "Bearer " + data.results.token,
-                },
-              }
-            );
+            const dataProfile = await fetch("http://localhost:8080/profile/", {
+              headers: {
+                Authorization: "Bearer " + data.result.token,
+              },
+            });
             const listData = await dataProfile.json();
-            console.log(listData);
 
-            dispatch(datas(listData.results));
+            dispatch(datas(listData.result));
+            console.log(listData.result[0]);
 
             navigate("/");
+            setWait(false);
           }
           profile();
         } else {
-          window.alert(data.message);
+          setMessage(data.message);
+          setWait(false);
         }
       })
       .catch((err) => {
@@ -95,6 +102,7 @@ function Login() {
           <div className="text-sm text-[#50B498] tracking-[0.5px] mb-[50px]">
             Hi, Welcome back to Urticket!
           </div>
+          <div className="text-red-600 mb-5">{message}</div>
           <form onSubmit={processLogin}>
             <div className="flex justify-center border-[#468585] flex-col gap-[15px]">
               <div className="border-[#468585] bg-transparent border-2 rounded-2xl">
@@ -116,15 +124,21 @@ function Login() {
                     className="flex-1 outline-none bg-transparent"
                   />
                   <button type="button" onClick={changePassword} className="">
-                    <img src={eye} alt="" />
+                    <FaEye />
                   </button>
                 </div>
               </div>
               <Link
                 to="/forgot-password"
-                className="text-[#3366FF] text-sm font-semibold text-end tracking-[1px] mb-[25px] text-[#468585]"
+                className="text-sm font-semibold text-end tracking-[1px] text-[#468585]"
               >
                 Forgot Password?
+              </Link>
+              <Link
+                to="/sign-up"
+                className="text-sm font-semibold text-end tracking-[1px] mb-[25px] text-[#468585]"
+              >
+                Dont Have an Account?
               </Link>
               <div className="">
                 <button
@@ -158,6 +172,7 @@ function Login() {
       <div className="">
         <Footer />
       </div>
+      {wait ? <Loading /> : ""}
     </div>
   );
 }

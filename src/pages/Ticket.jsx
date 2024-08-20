@@ -8,8 +8,24 @@ import ticket2 from "../assets/img/ticket2.svg";
 import ticket3 from "../assets/img/ticket3.svg";
 import stadionticket from "../assets/img/stadionticket.svg";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { FaTicket } from "react-icons/fa6";
 
 function Ticket() {
+  const id = useParams("id");
+  const [data, setData] = React.useState([]);
+  async function datas() {
+    const dataSection = await fetch(
+      "http://localhost:8080/events/section/" + id.id
+    );
+    const listData = await dataSection.json();
+    setData(listData.result);
+    console.log(listData.result);
+  }
+  useEffect(() => {
+    datas();
+  }, []);
   const [num1, setNum1] = React.useState(0);
   function mins1() {
     if (num1 > 0) {
@@ -78,146 +94,62 @@ function Ticket() {
                   <button className="font-semibold tracking-[1px] text-xs text-[#468585]">
                     BY PRICE
                   </button>
-                  <button type="submit" className="">
-                    <img src={change} alt="" className="h-[24px] w-[24px]" />
+                  <button type="submit" className="text-[#468585]">
+                    &#8643;&#8638;
                   </button>
                 </div>
               </div>
-              <div className="flex items-center mb-[16px]">
-                <div className="h-[45px] w-[45px] bg-[#F1EAFF] flex items-center justify-center rounded-[10px] mr-[16px]">
-                  <img src={ticket1} alt="" className="" />
-                </div>
-                <div className="flex justify-between w-full">
-                  <div className="flex flex-col gap-[4px]">
-                    <div className="text-sm text-[#468585] font-semibold">
-                      SECTION REG, ROW 1
+              {data.map((item) => {
+                return (
+                  <div className="">
+                    <div className="flex items-center mb-[16px]">
+                      <div className="h-[45px] w-[45px] bg-[#DEF9C4] border-2 border-[#468585] flex items-center justify-center rounded-[10px] mr-[16px] text-[#468585]">
+                        <FaTicket />
+                      </div>
+                      <div className="flex justify-between w-full">
+                        <div className="flex flex-col gap-[4px]">
+                          <div className="text-sm text-[#468585] font-semibold">
+                            {item.name}
+                          </div>
+                          <div className="text-xs text-[#50B498]">
+                            {item.quantity + " Seats available"}
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-[1px] items-center">
+                          <div className="text-[#468585] font-semibold tracking-[1px]">
+                            {"Rp " + item.price}
+                          </div>
+                          <div className="text-xs tracking-[0.5] text-[#50B498]">
+                            per person
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs text-[#50B498]">
-                      12 Seats available
+                    <div className="flex justify-between items-center mb-[50px]">
+                      <div className="pl-[60px] text-[#468585] tracking-[1px] text-xs font-semibold">
+                        Quantity
+                      </div>
+                      <div className="flex gap-[20px] items-center">
+                        <button
+                          type="button"
+                          onClick={mins1}
+                          className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
+                        >
+                          -
+                        </button>
+                        <div className="text-[#468585]">{num1}</div>
+                        <button
+                          type="button"
+                          onClick={plus1}
+                          className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-[1px] items-center">
-                    <div className="text-[#468585] font-semibold tracking-[1px]">
-                      $15
-                    </div>
-                    <div className="text-xs tracking-[0.5] text-[#50B498]">
-                      per person
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between items-center mb-[50px]">
-                <div className="pl-[60px] text-[#468585] tracking-[1px] text-xs font-semibold">
-                  Quantity
-                </div>
-                <div className="flex gap-[20px] items-center">
-                  <button
-                    type="button"
-                    onClick={mins1}
-                    className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                  >
-                    -
-                  </button>
-                  <div className="text-[#468585]">{num1}</div>
-                  <button
-                    type="button"
-                    onClick={plus1}
-                    className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center mb-[16px]">
-                <div className="h-[45px] w-[45px] bg-[#FFEAEF] flex items-center justify-center rounded-[10px] mr-[16px]">
-                  <img src={ticket2} alt="" className="" />
-                </div>
-                <div className="flex justify-between w-full">
-                  <div className="flex flex-col gap-[4px]">
-                    <div className="text-sm text-[#468585] font-semibold">
-                      SECTION REG, ROW 2
-                    </div>
-                    <div className="text-xs text-[#50B498]">
-                      9 Seats available
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-[1px] items-center">
-                    <div className="text-[#468585] font-semibold tracking-[1px]">
-                      $35
-                    </div>
-                    <div className="text-xs tracking-[0.5] text-[#50B498]">
-                      per person
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between items-center mb-[50px]">
-                <div className="pl-[60px] text-[#468585] tracking-[1px] text-xs font-semibold">
-                  Quantity
-                </div>
-                <div className="flex gap-[20px] items-center">
-                  <button
-                    type="button"
-                    onClick={mins2}
-                    className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                  >
-                    -
-                  </button>
-                  <div className="text-[#468585]">{num2}</div>
-                  <button
-                    type="button"
-                    onClick={plus2}
-                    className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center mb-[16px]">
-                <div className="h-[45px] w-[45px] bg-[#FFF4E7] flex items-center justify-center rounded-[10px] mr-[16px]">
-                  <img src={ticket3} alt="" className="" />
-                </div>
-                <div className="flex justify-between w-full">
-                  <div className="flex flex-col gap-[4px]">
-                    <div className="text-sm text-[#468585] font-semibold">
-                      SECTION REG, ROW 3
-                    </div>
-                    <div className="text-xs text-[#50B498]">
-                      6 Seats available
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-[1px] items-center">
-                    <div className="text-[#468585] font-semibold tracking-[1px]">
-                      $50
-                    </div>
-                    <div className="text-xs tracking-[0.5] text-[#50B498]">
-                      per person
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between items-center mb-[25px]">
-                <div className="pl-[60px] text-[#468585] tracking-[1px] text-xs font-semibold">
-                  Quantity
-                </div>
-                <div className="flex gap-[20px] items-center">
-                  <button
-                    type="button"
-                    onClick={mins3}
-                    className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                  >
-                    -
-                  </button>
-                  <div className=" text-[#468585]">{num3}</div>
-                  <button
-                    type="button"
-                    onClick={plus3}
-                    className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
+                );
+              })}
             </div>
             <div className="text-sm flex justify-between mb-[16px]">
               <div className="text-[#468585] tracking-[1px] font-semibold">
@@ -244,7 +176,7 @@ function Ticket() {
               <div className="text-[#468585] tracking-[1px] font-semibold">
                 {num1 === 0 && num2 === 0 && num3 === 0
                   ? "-"
-                  : "$" + (num1 * 15 + num2 * 35 + num3 * 50)}
+                  : "Rp " + (num1 * 100000 + num2 * 500000 + num3 * 1000000)}
               </div>
             </div>
             <Link to="/payment">

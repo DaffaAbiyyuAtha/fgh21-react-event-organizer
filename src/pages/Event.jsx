@@ -11,8 +11,23 @@ import profile2 from "../assets/img/profile2.svg";
 import profile3 from "../assets/img/profile3.svg";
 import profile4 from "../assets/img/profile4.svg";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { FaHeart, FaLocationDot, FaClock } from "react-icons/fa6";
 
 function Event() {
+  const id = useParams("id");
+  const [data, setData] = React.useState({});
+  async function datas() {
+    const dataEvent = await fetch("http://localhost:8080/events/" + id.id);
+    const listData = await dataEvent.json();
+    setData(listData.result);
+    console.log(listData);
+  }
+  useEffect(() => {
+    datas();
+  }, []);
+  console.log(setData);
   return (
     <div className="md:bg-[#9CDBA6]">
       <div className="navbar">
@@ -28,26 +43,26 @@ function Event() {
           <div className="flex flex-col px-5 py-24 justify-center absolute bg-gradient-to-t from-[black] to-[transparent] w-full h-full ">
             <div className="flex justify-between ">
               <div className="text-white text-2xl tracking-widest font-semibold mb-4">
-                Sights & Sounds Exhibition
+                {data.title}
               </div>
               <div className="">
                 <img src={favorite} alt="" className="h-6 w-6" />
               </div>
             </div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="">
-                <img src={location} alt="" />
+              <div className="text-[#468585]">
+                <FaLocationDot />
               </div>
               <div className="text-white tracking-wide font-medium text-sm ">
                 Jakarta, Indonesia
               </div>
             </div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="">
-                <img src={clock} alt="" />
+              <div className="text-[#468585]">
+                <FaClock />
               </div>
               <div className="text-white tracking-wide font-medium text-sm">
-                Wed, 15 Nov, 4:00 PM
+                {data.date}
               </div>
             </div>
             <div className="text-white mb-2">Attendees</div>
@@ -72,19 +87,19 @@ function Event() {
             </div>
           </div>
         </div>
-        <div className="flex mt-[48px] md:m-16 m-10 bg-[#DEF9C4] rounded-[30px] p-10 md:p-24 ">
-          <div className="md:flex flex-col md:w-2/5 h-[486px] mr-[88px] hidden">
-            <div className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px] ">
+        <div className="flex mt-[48px] md:m-16 m-10 bg-[#DEF9C4] rounded-[30px] p-10 md:p-24 justify-center ">
+          <div className="md:flex flex-col md:w-2/5 h-[486px] mr-[88px] hidden justify-center ">
+            <div className="flex max-w-80 w-full h-full overflow-hidden rounded-[40px] mb-[52px] justify-center">
               <img
-                src={museum}
+                src={data.image}
                 alt=""
-                className=" h-full w-full object-cover"
+                className=" h-full w-full object-cover justify-center"
               />
-              <div className="absolute bg-gradient-to-t from-[black] to-[transparent] w-full h-full "></div>
+              {/* <div className="absolute bg-gradient-to-t from-[black] to-[transparent] w-full h-full "></div> */}
             </div>
             <div className="flex justify-center items-center gap-[16px]">
-              <div className="">
-                <img src={favorite} alt="" className="w-[36px] h-[36px]" />
+              <div className="text-[#468585]">
+                <FaHeart />
               </div>
               <div className="font-semibold text-xl text-[#468585] tracking-[1px]">
                 Add to Wishlist
@@ -94,23 +109,23 @@ function Event() {
           <div className="md:w-3/5">
             <div className=" md:flex flex-col border-b-2 border-solid border-[rgba(193,197,208,0.25)] mb-[25px] hidden">
               <div className="font-semibold text-2xl text-[#468585] mb-[30px] tracking-[2px]">
-                Sights & Sounds<div>Exhibition</div>
+                {data.title}
               </div>
               <div className="flex gap-[88px] mb-[30px]">
                 <div className="flex gap-[4px] text-sm items-center tracking-[1px] font-medium">
-                  <div className="">
-                    <img src={location} alt="" />
+                  <div className="text-[#468585]">
+                    <FaLocationDot />
                   </div>
                   <div className="text-[#50B498] font-medium text-sm">
                     Jakarta, Indonesia
                   </div>
                 </div>
                 <div className="flex gap-[4px] text-sm items-center tracking-[1px] font-medium">
-                  <div className="">
-                    <img src={clock} alt="" />
+                  <div className="text-[#468585]">
+                    <FaClock />
                   </div>
                   <div className="text-[#50B498] font-medium text-sm">
-                    Wed, 15 Nov, 4:00 PM
+                    {data.date}
                   </div>
                 </div>
               </div>
@@ -139,8 +154,7 @@ function Event() {
               Event Detail
             </div>
             <div className="text-xs text-[#50B498] mb-[12px]">
-              After his controversial art exhibition "Tear and Consume" back in
-              November 2018, in which guests were invited to tear up…
+              {data.description}
             </div>
             <div className="text-xs text-[#468585] underline font-medium mb-[25px]">
               Read More
@@ -155,7 +169,7 @@ function Event() {
                 className="h-[152px] w-full md:max-w-[315px] object-cover rounded-[20px] mb-[50px]"
               />
             </div>
-            <Link to="/ticket">
+            <Link to={`/events/section/${data.id}`}>
               <button
                 type="submit"
                 className="h-[55px] w-full md:max-w-[315px] bg-[#468585] rounde text-[#DEF9C4] rounded-[15px]"

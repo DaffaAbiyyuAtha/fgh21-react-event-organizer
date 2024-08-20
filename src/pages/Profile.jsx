@@ -10,21 +10,20 @@ import { datas } from "../redux/reducers/profile";
 function Profile() {
   const dataToken = useSelector((state) => state.auth.token);
   const dataProfile = useSelector((state) => state.profile.data);
-  const [nasionality, setNasionality] = React.useState([]);
+  console.log(dataProfile);
+  const [profiles, setProfile] = React.useState([]);
+  async function dataProfiles() {
+    const dataNasional = await fetch("http://localhost:8080/profile/", {
+      headers: {
+        Authorization: "Bearer " + dataToken,
+      },
+    });
+    const listData = await dataNasional.json();
+    console.log(listData.result[0]);
+    setProfile(listData.result);
+  }
   useEffect(() => {
-    async function profiles() {
-      const dataNasional = await fetch(
-        "https://wsw6zh-8888.csb.app/profile/nationalities",
-        {
-          headers: {
-            Authorization: "Bearer " + dataToken,
-          },
-        }
-      );
-      const listData = await dataNasional.json();
-      setNasionality(listData.results);
-    }
-    profiles();
+    dataProfiles();
   }, []);
   return (
     <div className="md:bg-[#9CDBA6]">
@@ -42,7 +41,7 @@ function Profile() {
               <div className="md:w-2/3 w-full md:mr-[50px]">
                 <div className="flex justify-center md:hidden">
                   <img
-                    src={dataProfile.picture}
+                    src=""
                     alt=""
                     className="h-[136px] w-[136px] rounded-full mb-[50px]"
                   />
@@ -59,8 +58,8 @@ function Profile() {
                             type="text"
                             name="name"
                             id="name"
-                            defaultValue={dataProfile.name}
-                            className="h-[55px] w-full sborder border-2 text-[#468585] border-[#468585] bg-transparent rounded-[16px] pl-[25px] pr-[25px]"
+                            defaultValue={dataProfile.profile[0].full_name}
+                            className="h-[55px] w-full sborder border-2 text-[#468585] border-[#468585] bg-transparent rounded-[16px] pl-[25px] pr-[25px] mb-5"
                           />
                         </td>
                       </tr>
@@ -74,7 +73,7 @@ function Profile() {
                             name="name"
                             id="name"
                             defaultValue={dataProfile.username}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
+                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
                           />
                         </td>
                       </tr>
@@ -87,8 +86,8 @@ function Profile() {
                             type="text"
                             name="name"
                             id="name"
-                            defaultValue={dataProfile.email}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
+                            defaultValue={dataProfile.user.email}
+                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
                           />
                         </td>
                       </tr>
@@ -101,8 +100,8 @@ function Profile() {
                             type="text"
                             name="name"
                             id="name"
-                            defaultValue={dataProfile.phoneNumber}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
+                            defaultValue={dataProfile.profile[0].phone_number}
+                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
                           />
                         </td>
                       </tr>
@@ -111,7 +110,7 @@ function Profile() {
                           Gender
                         </td>
                         <td className="text-sm tracking-[1px] text-[#468585] pt-[48px] flex gap-[12px]">
-                          {dataProfile.gender === "Male" ? (
+                          {profile.gender === "Male" ? (
                             <input
                               type="radio"
                               name="gender"
@@ -124,7 +123,7 @@ function Profile() {
                           <label htmlFor="male" className="mr-[25px]">
                             Male
                           </label>
-                          {dataProfile.gender === "Female" ? (
+                          {profile.gender === "Female" ? (
                             <input
                               type="radio"
                               name="gender"
@@ -142,16 +141,16 @@ function Profile() {
                           <label htmlFor="name">Profession</label>
                         </td>
                         <td className="">
-                          <section
+                          <input
                             type="text"
                             name="name"
                             id="name"
-                            defaultValue={dataProfile.profession}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
-                          ></section>
+                            defaultValue={dataProfile.profile[0].profession}
+                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5 mt-5"
+                          ></input>
                         </td>
                       </tr>
-                      <tr className="flex flex-col md:table-row">
+                      {/* <tr className="flex flex-col md:table-row">
                         <td className="text-sm tracking-[1px] text-[#468585]">
                           <label htmlFor="name">Nationality</label>
                         </td>
@@ -173,7 +172,7 @@ function Profile() {
                             })}
                           </select>
                         </td>
-                      </tr>
+                      </tr> */}
                       <tr className="flex flex-col md:table-row">
                         <td className="text-sm tracking-[1px] text-[#468585]">
                           <label htmlFor="birthday">Birthday Date</label>
@@ -183,7 +182,7 @@ function Profile() {
                             type="date"
                             name="birthday"
                             id="birthday"
-                            defaultValue={dataProfile.birthdayDate}
+                            defaultValue={dataProfile.profile[0].birth_date}
                             className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
                           />
                         </td>
@@ -203,7 +202,7 @@ function Profile() {
               <div className="w-1/3 hidden md:block">
                 <div className="flex justify-center">
                   <img
-                    src={dataProfile.picture}
+                    src={profiles.picture}
                     alt=""
                     className="h-[136px] w-[136px]  rounded-full mb-[50px]"
                   />

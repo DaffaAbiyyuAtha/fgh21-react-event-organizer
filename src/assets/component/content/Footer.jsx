@@ -4,6 +4,12 @@ import fb from "../../img/sosmed-fb.svg";
 import wa from "../../img/sosmed-ig.svg";
 import ig from "../../img/sosmed-wa.svg";
 import x from "../../img/sosmed-x.svg";
+import {
+  FaSquareFacebook,
+  FaSquareInstagram,
+  FaSquareWhatsapp,
+  FaSquareTwitter,
+} from "react-icons/fa6";
 
 function Footer() {
   return (
@@ -13,83 +19,83 @@ function Footer() {
           <div className="mb-[30px] ">
             <Logo />
           </div>
-          <div className="mb-[15px] text-[#373A42] font-medium tracking-[1px] text-sm">
+          <div className="mb-[15px] text-[#468585] font-medium tracking-[1px] text-sm">
             Find events you love with our
           </div>
-          <div className="flex gap-[16px]">
+          <div className="flex gap-[16px] text-[#468585]">
             <div>
-              <img src={fb} alt="" />
+              <FaSquareFacebook className="w-6 h-6" />
             </div>
             <div>
-              <img src={wa} alt="" />
+              <FaSquareInstagram className="w-6 h-6" />
             </div>
             <div>
-              <img src={ig} alt="" />
+              <FaSquareWhatsapp className="w-6 h-6" />
             </div>
             <div>
-              <img src={x} alt="" />
+              <FaSquareTwitter className="w-6 h-6" />
             </div>
           </div>
         </div>
         <div className="md:w-1/5">
-          <div className="font-semibold tracking-[1px] text-[#373A42] mb-[20px]">
+          <div className="font-semibold tracking-[1px] text-[#468585] mb-[20px]">
             Wetick
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             About Us
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Features
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Blog
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Payments
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Mobile App
           </div>
         </div>
         <div className="md:w-1/5">
-          <div className="font-semibold tracking-[1px] text-[#373A42] mb-[20px]">
+          <div className="font-semibold tracking-[1px] text-[#468585] mb-[20px]">
             Features
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Booking
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Create Event
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Discover
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Register
           </div>
         </div>
         <div className="md:w-1/5">
-          <div className="font-semibold tracking-[1px] text-[#373A42] mb-[20px]">
+          <div className="font-semibold tracking-[1px] text-[#468585] mb-[20px]">
             Company
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Partnership
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Help
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Terms of Service
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Privacy Policy
           </div>
-          <div className="font-medium tracking-[1px] text-[#C1C5D0] mb-[16px]">
+          <div className="font-medium tracking-[1px] text-[#50B498] mb-[16px]">
             Sitemap
           </div>
         </div>
       </div>
-      <div className="font-semibold text-[#5A7184] tracking-[1px]">
+      <div className="font-semibold text-[#468585] tracking-[1px]">
         &copy; 2020 Wetick All Rights Reserved
       </div>
     </div>

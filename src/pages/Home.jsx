@@ -29,12 +29,15 @@ import banner from "../assets/img/banner1.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadEvent } from "../redux/reducers/event.js";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 
 function Home() {
-  const dataToken = useSelector((state) => state.auth.token);
   const updateDataEvent = useSelector((state) => state.event.data);
   const dispatch = useDispatch();
   const [add, setAll] = React.useState(true);
+  const [category, setCategory] = React.useState([]);
+  const [location, setLocation] = React.useState([]);
+  const [partner, setPartner] = React.useState([]);
   function seeAll() {
     if (add === true) {
       setAll(false);
@@ -42,17 +45,35 @@ function Home() {
       setAll(true);
     }
   }
+  async function event() {
+    const dataHome = await fetch("http://localhost:8080/events/", {});
+    const listData = await dataHome.json();
+    dispatch(loadEvent(listData.result));
+  }
+
+  async function categories() {
+    const dataHome = await fetch("http://localhost:8080/categories/", {});
+    const listCategory = await dataHome.json();
+    setCategory(listCategory.result);
+  }
+
+  async function locations() {
+    const dataHome = await fetch("http://localhost:8080/locations/", {});
+    const listCategory = await dataHome.json();
+    setLocation(listCategory.result);
+  }
+
+  async function partners() {
+    const dataHome = await fetch("http://localhost:8080/partner/", {});
+    const listCategory = await dataHome.json();
+    setPartner(listCategory.result);
+  }
+
   useEffect(() => {
-    async function event() {
-      const dataHome = await fetch("https://wsw6zh-8888.csb.app/events", {
-        headers: {
-          Authorization: "Bearer " + dataToken,
-        },
-      });
-      const listData = await dataHome.json();
-      dispatch(loadEvent(listData.results));
-    }
+    categories();
     event();
+    locations();
+    partners();
   }, []);
   return (
     <div>
@@ -103,21 +124,21 @@ function Home() {
         <div className="flex gap-4 overflow-x-scroll mb-10 ml-10 md:ml-16">
           {updateDataEvent.map((item) => {
             return (
-              <Link to="/event">
+              <Link to={`/events/${item.id}`}>
                 <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative overflow-hidden">
                   <img
-                    src={"https://wsw6zh-8888.csb.app/" + item.picture}
+                    src={item.image}
                     alt=""
                     className="flex relative w-full h-full overflow-hidden rounded-[40px] relative mb-[52px] overflow-hidden"
                   />
                   <div className="absolute bg-gradient-to-t from-black ... w-[260px] h-[376px]">
                     <div className="flex flex-col justify-end h-full gap-6 ml-6 pb-7">
                       <div className="text-white">
-                        {new Date(item.time).toLocaleDateString("en-CA")}
+                        {new Date(item.date).toLocaleDateString("en-CA")}
                       </div>
                       <div className="text-white">{item.title}</div>
                       <div className="flex">
-                        {item.attendees.map((pict) => {
+                        {/* {item.attendees.map((pict) => {
                           return (
                             <div className="flex mb-[8px]">
                               <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
@@ -131,7 +152,7 @@ function Home() {
                               </div>
                             </div>
                           );
-                        })}
+                        })} */}
                       </div>
                     </div>
                   </div>
@@ -164,64 +185,20 @@ function Home() {
                       Discover Events Near You
                     </div>
                   </div>
-                  <div className="flex flex-col gap-2 text-white items-center">
-                    <img src={jakarta} alt="" className="w-full h-full" />
-                    <div className="font-medium text-[#DEF9C4]">Jakarta</div>
-                  </div>
-                  <div className="flex flex-col gap-2 text-[#DEF9C4] items-center">
-                    <img src={bandung} alt="" className="w-full h-full" />
-                    <div className="font-medium text-[#DEF9C4]">Bandung</div>
-                  </div>
-                  <div
-                    className={
-                      add
-                        ? "md:flex flex-col gap-2 text-[#DEF9C4] items-center hidden"
-                        : "md:flex flex-col gap-2 text-[#DEF9C4] items-center"
-                    }
-                  >
-                    <img src={bali} alt="" className="w-full h-full" />
-                    <div className="font-medium text-center ">Bali</div>
-                  </div>
-                  <div
-                    className={
-                      add
-                        ? "md:flex flex-col gap-2 text-[#DEF9C4] items-center hidden"
-                        : "md:flex flex-col gap-2 text-[#DEF9C4] items-center"
-                    }
-                  >
-                    <img src={aceh} alt="" className="w-full h-full" />
-                    <div className="font-medium text-center">Aceh</div>
-                  </div>
-                  <div
-                    className={
-                      add
-                        ? "md:flex flex-col gap-2 text-[#DEF9C4] items-center hidden"
-                        : "md:flex flex-col gap-2 text-[#DEF9C4] items-center"
-                    }
-                  >
-                    <img src={solo} alt="" className="w-full h-full" />
-                    <div className="font-medium text-center">Solo</div>
-                  </div>
-                  <div
-                    className={
-                      add
-                        ? "md:flex flex-col gap-2 text-[#DEF9C4] items-center hidden"
-                        : "md:flex flex-col gap-2 text-[#DEF9C4] items-center"
-                    }
-                  >
-                    <img src={jogja} alt="" className="w-full h-full" />
-                    <div className="font-medium text-center">Yogyakarta</div>
-                  </div>
-                  <div
-                    className={
-                      add
-                        ? "md:flex flex-col gap-2 text-[#DEF9C4] items-center hidden"
-                        : "md:flex flex-col gap-2 text-[#DEF9C4] items-center"
-                    }
-                  >
-                    <img src={semarang} alt="" className="w-full h-full" />
-                    <div className="font-medium text-center">Semarang</div>
-                  </div>
+                  {location.map((item) => {
+                    return (
+                      <div className="flex flex-col gap-2 text-white items-center">
+                        <img
+                          src={item.image}
+                          alt=""
+                          className="w-full h-full rounded-xl"
+                        />
+                        <div className="font-medium text-[#DEF9C4]">
+                          {item.name}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="w-full text-center" onClick={seeAll}>
                   <button className="bg-[#DEF9C4] max-w-[255px] w-full h-[40px] rounded-xl text-[#468585]">
@@ -240,18 +217,21 @@ function Home() {
             </div>
           </div>
           <div className="grid grid-cols-3 md:grid-cols-7 w-full justify-between gap-10 m-10 md:m-16 text-center">
-            <div className="underline text-[#468585] font-semibold">Music</div>
-            <div className="text-[#50B498] font-semibold">Arts</div>
-            <div className="text-[#50B498] font-semibold">Outdoors</div>
-            <div className="text-[#50B498] font-semibold">Workshop</div>
-            <div className="text-[#50B498] font-semibold">Sport</div>
-            <div className="text-[#50B498] font-semibold">Festival</div>
-            <div className="text-[#50B498] font-semibold">Fashion</div>
+            {category.map((items) => {
+              return (
+                <button
+                  type="button"
+                  className="text-[#50B498] hover:text-[#468585] hover:underline hover:font-bold font-semibold"
+                >
+                  {items.name}
+                </button>
+              );
+            })}
           </div>
         </div>
         <div className="flex gap-6 items-center md:justify-center m-10 overflow-x-scroll md:overflow-x-visible">
-          <div className="md:w-[45px] md:h-[45px] md:shadow-md md:bg-[#DEF9C4] md:flex  items-center justify-center rounded-md hidden">
-            <img src={arrowLeft} alt="" className="" />
+          <div className="md:w-[45px] md:h-[45px] md:shadow-md md:bg-[#DEF9C4] md:flex text-[#468585] items-center justify-center rounded-md hidden">
+            <FaArrowLeft />
           </div>
           <div className="relative w-[300px] h-[350px] rounded-3xl overflow-hidden ml-8 flex-shrink-0">
             <img src={cars} alt="" />
@@ -337,8 +317,8 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="md:w-[45px] md:h-[45px] md:shadow-md md:bg-[#468585] md:flex  items-center justify-center rounded-md hidden">
-            <img src={arrowRight} alt="" className="" />
+          <div className="md:w-[45px] md:h-[45px] md:shadow-md text-[#9CDBA6]  md:bg-[#468585] md:flex  items-center justify-center rounded-md hidden">
+            <FaArrowRight />
           </div>
         </div>
       </div>
@@ -351,24 +331,13 @@ function Home() {
         </div>
         <div className="text-[#C1C5D0] mb-8">By companies like :</div>
         <div className="grid grid-cols-2 md:grid-cols-6 items-center gap-6">
-          <div>
-            <img src={black1} alt="" />
-          </div>
-          <div>
-            <img src={black2} alt="" />
-          </div>
-          <div>
-            <img src={black3} alt="" />
-          </div>
-          <div>
-            <img src={black4} alt="" />
-          </div>
-          <div>
-            <img src={black5} alt="" />
-          </div>
-          <div>
-            <img src={black6} alt="" />
-          </div>
+          {partner.map((item) => {
+            return (
+              <div>
+                <img src={item.image} alt="" />
+              </div>
+            );
+          })}
         </div>
       </div>
       <div>

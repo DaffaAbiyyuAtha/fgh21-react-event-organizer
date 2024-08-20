@@ -2,8 +2,52 @@ import React from "react";
 import Navbar from "../assets/component/content/Navbar";
 import Footer from "../assets/component/content/Footer";
 import Sidebar from "../assets/component/content/Sidebar";
+import { FaEye } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 function Profile() {
+  const dataToken = useSelector((state) => state.auth.token);
+  let [pass, setPassword] = React.useState("password");
+  function changePassword() {
+    if (pass === "password") {
+      setPassword("text");
+    } else {
+      setPassword("password");
+    }
+  }
+  let [newPass, setNewPassword] = React.useState("password");
+  function changeNewPassword() {
+    if (newPass === "password") {
+      setNewPassword("text");
+    } else {
+      setNewPassword("password");
+    }
+  }
+  let [confPass, setConfPassword] = React.useState("password");
+  function changeConfPassword() {
+    if (confPass === "password") {
+      setConfPassword("text");
+    } else {
+      setConfPassword("password");
+    }
+  }
+
+  async function changeNewPasswords(dataPassword) {
+    dataPassword.preventDefault();
+    const password = dataPassword.target.newpassword.value;
+    const form = new URLSearchParams();
+    form.append("password", password);
+    const dataPasswords = await fetch("http://localhost:8080/users/password/", {
+      method: "PATCH",
+      headers: {
+        Authorization: "Bearer " + dataToken,
+      },
+      body: form,
+    });
+    const listData = await dataPasswords.json();
+    console.log(listData);
+  }
+  changeNewPasswords();
   return (
     <div className="md:bg-[#9CDBA6] bg-[#9CDBA6]">
       <div className="">
@@ -15,48 +59,71 @@ function Profile() {
           <div className="mb-[50px] text-[#468585] text-xl font-semibold tracking-[1px]">
             Change Password
           </div>
-          <form className="w-full">
+          <form className="w-full" onSubmit={changeNewPasswords}>
             <table className="w-full">
               <tr className="flex flex-col md:table-row">
                 <td className="text-[#468585] tracking-[1px] text-sm">
                   <label htmlFor="password">Old Password</label>
                 </td>
-                <td className="pt-[32px]">
-                  <input
-                    type="text"
-                    name="password"
-                    id="password"
-                    placeholder="Input Old Password ..."
-                    className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full border-2 pl-[28px] pr-[28px] text-sm rounded-[15px]"
-                  />
+                <td className="">
+                  <div className="flex w-full items-center border-[#468585] bg-transparent border-2 h-14 px-6 rounded-2xl text-[#468585] overflow-hidden ">
+                    <input
+                      type={pass}
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                      className="flex-1 outline-none bg-transparent"
+                    />
+                    <button type="button" className="" onClick={changePassword}>
+                      <FaEye />
+                    </button>
+                  </div>
                 </td>
               </tr>
               <tr className="flex flex-col md:table-row">
                 <td className="text-[#468585] tracking-[1px] text-sm pt-[32px]">
                   <label htmlFor="newpassword">New Password</label>
                 </td>
-                <td className="pt-[32px]">
-                  <input
-                    type="text"
-                    name="newpassword"
-                    id="newpassword"
-                    placeholder="Input New Password ..."
-                    className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full border-2 pl-[28px] pr-[28px] text-sm rounded-[15px]"
-                  />
+                <td className="">
+                  <div className="flex w-full items-center border-[#468585] bg-transparent border-2 h-14 px-6 rounded-2xl text-[#468585] overflow-hidden mt-6">
+                    <input
+                      type={newPass}
+                      name="newpassword"
+                      id="newpassword"
+                      placeholder="Input New Password ..."
+                      className="flex-1 outline-none bg-transparent"
+                    />
+                    <button
+                      type="button"
+                      className=""
+                      onClick={changeNewPassword}
+                    >
+                      <FaEye />
+                    </button>
+                  </div>
                 </td>
               </tr>
               <tr className="flex flex-col md:table-row">
                 <td className="text-[#468585] tracking-[1px] text-sm pt-[32px]">
                   <label htmlFor="confirmpassword">Confirm Password</label>
                 </td>
-                <td className="pt-[32px]">
-                  <input
-                    type="text"
-                    name="confirmpassword"
-                    id="confirmpassword"
-                    placeholder="Input Confirm Password ..."
-                    className="h-[55px] w-full text-[#468585] border-[#468585] bg-transparent border-2 pl-[28px] pr-[28px] text-sm rounded-[15px]"
-                  />
+                <td className="">
+                  <div className="flex w-full items-center border-[#468585] bg-transparent border-2 h-14 px-6 rounded-2xl text-[#468585] overflow-hidden mt-6">
+                    <input
+                      type={confPass}
+                      name="confirmpassword"
+                      id="confirmpassword"
+                      placeholder="Confirm New Password"
+                      className="flex-1 outline-none bg-transparent"
+                    />
+                    <button
+                      type="button"
+                      className=""
+                      onClick={changeConfPassword}
+                    >
+                      <FaEye />
+                    </button>
+                  </div>
                 </td>
               </tr>
             </table>

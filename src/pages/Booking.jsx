@@ -3,6 +3,7 @@ import Navbar from "../assets/component/content/Navbar";
 import Footer from "../assets/component/content/Footer";
 import Sidebar from "../assets/component/content/Sidebar";
 import dateBlue from "../assets/img/date-blue.svg";
+import { FaCalendarDays } from "react-icons/fa6";
 
 function Booking() {
   return (
@@ -18,8 +19,8 @@ function Booking() {
               My Booking
             </div>
             <div className="flex items-center justify-center rounded-2xl gap-4 w-32 h-12 bg-[#468585]">
-              <div className="">
-                <img src={dateBlue} alt="" />
+              <div className="text-[#DEF9C4]">
+                <FaCalendarDays />
               </div>
               <div className="text-[#DEF9C4] font-medium tracking-widest text-xs">
                 March

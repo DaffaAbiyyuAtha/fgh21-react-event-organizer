@@ -1,12 +1,12 @@
 import React from "react";
 import Logo from "../content/Logo";
-import profile from "../../img/profile.svg";
-import { Link, useParams } from "react-router-dom";
+import profile from "../../img/profile-circle.svg";
+import { Link, ScrollRestoration, useParams } from "react-router-dom";
 import toggle from "../../img/toggle.svg";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 function Navbar() {
-  let { id } = useParams();
+  // let { id } = useParams();
   const dataProfile = useSelector((state) => state.profile.data);
   const tokens = useSelector((state) => state.auth.token);
   const [open, setOpen] = React.useState(true);
@@ -17,19 +17,18 @@ function Navbar() {
       setOpen(true);
     }
   }
-  async function datas() {
-    const dataEvent = await fetch("http://localhost:8080/profile/" + id.id, {
-      headers: {
-        Authorization: "Bearer " + tokens,
-      },
-    });
-    const listData = await dataEvent.json();
-    setData(listData.result);
-    console.log(listData);
-  }
-  useEffect(() => {
-    datas();
-  }, []);
+  // async function datas() {
+  //   const dataEvent = await fetch("http://localhost:8080/profile/" + id.id, {
+  //     headers: {
+  //       Authorization: "Bearer " + tokens,
+  //     },
+  //   });
+  //   const listData = await dataEvent.json();
+  //   setData(listData.result);
+  // }
+  // useEffect(() => {
+  //   datas();
+  // }, []);
   return (
     <div className="bg-[#DEF9C4] py-4 px-10 md:px-16 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
       <div className="flex justify-between">
@@ -98,20 +97,33 @@ function Navbar() {
             <Link to="/profile" className="flex justify-center">
               <div className="flex items-center gap-[8px]">
                 <div className="rounded-full">
-                  <img
-                    src="profile"
-                    className="rounded-full border-2 w-10 h-10 border-[#468585] "
-                  />
+                {dataProfile.profile[0].picture === null ? (
+                  <div className="flex justify-center">
+                    <img
+                      src={profile}
+                      alt=""
+                      className="rounded-full border-2 w-12 h-12 border-[#468585]"
+                    />
+                  </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <img
+                        src={dataProfile.profile[0].picture}
+                        alt=""
+                        className="rounded-full border-2 w-12 h-12 border-[#468585]"
+                      />
+                    </div>
+                  )}
                 </div>
-
                 <div className="text-sm tracking-[1px] text-[#50B498] font-semibold">
-                  Jhon Tomson
+                  {dataProfile.profile[0].full_name}
                 </div>
               </div>
             </Link>
           </div>
         )}
       </div>
+      <ScrollRestoration />
     </div>
   );
 }

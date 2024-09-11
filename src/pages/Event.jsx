@@ -10,24 +10,37 @@ import profile1 from "../assets/img/profile1.svg";
 import profile2 from "../assets/img/profile2.svg";
 import profile3 from "../assets/img/profile3.svg";
 import profile4 from "../assets/img/profile4.svg";
+import Loading from "../assets/component/content/Loading";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { FaHeart, FaLocationDot, FaClock } from "react-icons/fa6";
 
 function Event() {
   const id = useParams("id");
+  const dataToken = useSelector((state) => state.auth.token);
   const [data, setData] = React.useState({});
-  async function datas() {
-    const dataEvent = await fetch("http://localhost:8080/events/" + id.id);
-    const listData = await dataEvent.json();
-    setData(listData.result);
-    console.log(listData);
-  }
+  const [wait, setWait] = React.useState(false);
   useEffect(() => {
+    setWait(true)
+    async function datas() {
+      const dataEvent = await fetch("http://localhost:8080/events/" + id.id);
+      const listData = await dataEvent.json();
+      setData(listData.result);
+      setWait(false)
+
+    }
     datas();
   }, []);
-  console.log(setData);
+  async function addwish(){
+    const wishfetch = await fetch("http://localhost:8080/wishlist/" + id.id,{
+      method: "POST",
+      headers: {
+              Authorization: "Bearer " + dataToken,
+            },
+      });
+  }
   return (
     <div className="md:bg-[#9CDBA6]">
       <div className="navbar">
@@ -97,14 +110,14 @@ function Event() {
               />
               {/* <div className="absolute bg-gradient-to-t from-[black] to-[transparent] w-full h-full "></div> */}
             </div>
-            <div className="flex justify-center items-center gap-[16px]">
+            <button type="button" onClick={addwish} className="flex justify-center items-center gap-[16px]">
               <div className="text-[#468585]">
                 <FaHeart />
               </div>
               <div className="font-semibold text-xl text-[#468585] tracking-[1px]">
                 Add to Wishlist
               </div>
-            </div>
+            </button>
           </div>
           <div className="md:w-3/5">
             <div className=" md:flex flex-col border-b-2 border-solid border-[rgba(193,197,208,0.25)] mb-[25px] hidden">
@@ -183,6 +196,7 @@ function Event() {
       <div className="">
         <Footer />
       </div>
+      {wait ? <Loading /> : ""}
     </div>
   );
 }

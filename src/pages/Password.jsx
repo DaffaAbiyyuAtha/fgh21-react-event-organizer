@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 function Profile() {
   const dataToken = useSelector((state) => state.auth.token);
   let [pass, setPassword] = React.useState("password");
+  const [message, setMessage] = React.useState(true)
   function changePassword() {
     if (pass === "password") {
       setPassword("text");
@@ -45,7 +46,7 @@ function Profile() {
       body: form,
     });
     const listData = await dataPasswords.json();
-    console.log(listData);
+    setMessage(listData.message);
   }
   changeNewPasswords();
   return (
@@ -59,6 +60,7 @@ function Profile() {
           <div className="mb-[50px] text-[#468585] text-xl font-semibold tracking-[1px]">
             Change Password
           </div>
+          <div className="text-red-600 mb-5">{message}</div>
           <form className="w-full" onSubmit={changeNewPasswords}>
             <table className="w-full">
               <tr className="flex flex-col md:table-row">

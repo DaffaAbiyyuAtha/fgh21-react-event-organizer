@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../content/Logo";
-import { Link } from "react-router-dom";
+import { Link, ScrollRestoration } from "react-router-dom";
 import toggle from "../../img/toggle.svg";
 
 function NavbarHome() {
@@ -65,6 +65,7 @@ function NavbarHome() {
           </button>
         </Link>
       </div>
+      <ScrollRestoration />
     </div>
   );
 }

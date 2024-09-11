@@ -9,13 +9,15 @@ import Footer from "../assets/component/content/Footer";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaEye, FaCircleCheck } from "react-icons/fa6";
+import Loading from "../assets/component/content/Loading";
 
 function Login() {
   const navigate = useNavigate();
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [passw, setPass] = React.useState("");
-  const [confPass, setConfPass] = React.useState("");
+  const [wait, setWait] = React.useState(false);
+  const [name, setName] = React.useState(false);
+  const [email, setEmail] = React.useState(false);
+  const [passw, setPass] = React.useState(false);
+  const [confPass, setConfPass] = React.useState(false);
   const [success, setSuccess] = React.useState("");
 
   let [pass, setPassword] = React.useState("password");
@@ -44,31 +46,55 @@ function Login() {
     formData.append("full_name", name);
     formData.append("email", email);
     formData.append("password", password);
-
+    
     fetch("http://localhost:8080/auth/register", {
       method: "POST",
       body: formData,
     });
+    setWait(true);
+    navigate("/login");
+   
+    // if (name !== "") {
+    //   setName(true)
+    // } else {
+    //   setName(false)
+    // }
+    // if (email !== "") {
+    //   setEmail(true)
+    // } else {
+    //   setEmail(false)
+    // }
+    // if (password !== "") {
+    //   setPass(true)
+    // } else {
+    //   setPass(false)
+    // }
+    // if (confirmPass !== password) {
+    //   setConfPass(true)
+    // } else {
+    //   setConfPass(false)
+    // }
 
-    if (name !== "") {
-      if (email !== "") {
-        if (password !== "") {
-          if (confirmPass === password) {
-            navigate("/login");
-            setSuccess("Registration Success! Please Log In");
-          } else {
-            setConfPass("Password and Confirm Password Must same!");
-          }
-        } else {
-          setPass("You Must Fill the Password!");
-        }
-      } else {
-        setEmail("You Must Fill the Email!");
-      }
-    } else {
-      setName("You Must Fill the Full Name!");
-    }
+  //   if (name !== "") {
+  //     if (email !== "") {
+  //       if (password !== "") {
+  //         if (confirmPass === password) {
+  //           navigate("/login");
+  //           setSuccess("Registration Success! Please Log In");
+  //         } else {
+  //           setConfPass("Password and Confirm Password Must same!");
+  //         }
+  //       } else {
+  //         setPass("You Must Fill the Password!");
+  //       }
+  //     } else {
+  //       setEmail("You Must Fill the Email!");
+  //     }
+  //   } else {
+  //     setName("You Must Fill the Full Name!");
+  //   }
   }
+  
   return (
     <div>
       <div className="md:flex mb-[100px]">
@@ -94,10 +120,6 @@ function Login() {
           </div>
           <form onSubmit={processLogin}>
             <div className="flex justify-center border-[#468585] flex-col gap-[15px]">
-              <div className="text-red-600 font-semibold">{name}</div>
-              <div className="text-red-600 font-semibold">{email}</div>
-              <div className="text-red-600 font-semibold">{passw}</div>
-              <div className="text-red-600 font-semibold">{confPass}</div>
               <div className="border-[#468585] bg-transparent border-2 rounded-2xl">
                 <input
                   type="text"
@@ -197,14 +219,15 @@ function Login() {
       <div className="">
         <Footer />
       </div>
-      <div className="flex justify-center items-center w-full h-screen bg-black/50">
+      {/* <div className="flex justify-center items-center w-full h-screen bg-black/50">
         <div className="flex flex-col gap-10 justify-center items-center w-96 h-80 font-bold text-xl text-[#468585] bg-[#DEF9C4] rounded-xl">
           <div className="">{success}</div>
           <button type="button">
             <FaCircleCheck />
           </button>
         </div>
-      </div>
+      </div> */}
+      {wait ? <Loading /> : ""}
     </div>
   );
 }

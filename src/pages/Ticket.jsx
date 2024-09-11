@@ -11,66 +11,128 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { FaTicket } from "react-icons/fa6";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import Section from "../assets/component/content/Section"
+// import Loading from "../assets/component/content/Loading";
+import { addQty,
+  addEventId,
+  addEventTitle,
+  addTotalPayment,
+  addTicketSection,
+  addSectionId,
+  addQuantity } from "../redux/reducers/sectionSelector";
 
 function Ticket() {
+  const dispatch = useDispatch();
   const id = useParams("id");
   const [data, setData] = React.useState([]);
+  // const [section, setSection] = React.useState([]);
+  const [wait, setWait] = React.useState(false);
+
   async function datas() {
     const dataSection = await fetch(
       "http://localhost:8080/events/section/" + id.id
     );
     const listData = await dataSection.json();
     setData(listData.result);
-    console.log(listData.result);
+    setWait(false)
   }
+
+  async function dataEvent() {
+    const dataEvent = await fetch("http://localhost:8080/events/" + id.id);
+    const listDataEvent = await dataEvent.json();
+    dispatch(addEventTitle(listDataEvent.result.title));
+  }
+
   useEffect(() => {
+    setWait(true)
     datas();
+    dataEvent();
   }, []);
-  const [num1, setNum1] = React.useState(0);
-  function mins1() {
-    if (num1 > 0) {
-      setNum1(num1 - 1);
+
+  const [selectedSections, setSelectedSections] = useState([]);
+
+  const ticketSection = selectedSections.reduce((prev, curr) => {
+    const arr = prev;
+    if (curr.quantity !== 0) {
+      arr.push(`${curr.name}(${curr.quantity})`);
     }
-  }
-  function plus1() {
-    if (num1 < 10) {
-      setNum1(num1 + 1);
+    return arr;
+  }, []);
+  const quantity = selectedSections.reduce(
+    (prev, curr) => prev + curr.quantity,
+    0
+  );
+  const price = selectedSections.reduce((prev, curr) => prev + curr.price, 0);
+
+  const sectionId = selectedSections.reduce((prev, curr) => {
+    const arr = prev;
+    if (curr.quantity !== 0) {
+      arr.push(curr.id);
     }
-  }
-  const [num2, setNum2] = React.useState(0);
-  function mins2() {
-    if (num2 > 0) {
-      setNum2(num2 - 1);
+    return arr;
+  }, []);
+  const quantityArray = selectedSections.reduce((prev, curr) => {
+    const arr = prev;
+    if (curr.quantity !== 0) {
+      arr.push(curr.quantity);
     }
-  }
-  function plus2() {
-    if (num2 < 10) {
-      setNum2(num2 + 1);
-    }
-  }
-  const [num3, setNum3] = React.useState(0);
-  function mins3() {
-    if (num3 > 0) {
-      setNum3(num3 - 1);
-    }
-  }
-  function plus3() {
-    if (num3 < 10) {
-      setNum3(num3 + 1);
-    }
-  }
-  let section = [];
-  if (num1 > 0) {
-    section.push(`REG(${num1})`);
-  }
-  if (num2 > 0) {
-    section.push(`VIP(${num2})`);
-  }
-  if (num3 > 0) {
-    section.push(`VVIP(${num3})`);
-  }
+    return arr;
+  }, []);
+
+  dispatch(addQuantity(quantityArray));
+  dispatch(addQty(quantity));
+  dispatch(addEventId(id));
+  dispatch(addSectionId(sectionId));
+  dispatch(addTotalPayment(price));
+  dispatch(addTicketSection(ticketSection));
+
+  // const [num1, setNum1] = React.useState(0);
+  // function mins1() {
+  //   if (num1 > 0) {
+  //     setNum1(num1 - 1);
+  //   }
+  // }
+  // function plus1() {
+  //   if (num1 < 10) {
+  //     setNum1(num1 + 1);
+  //   }
+  // }
+  // const [num2, setNum2] = React.useState(0);
+  // function mins2() {
+  //   if (num2 > 0) {
+  //     setNum2(num2 - 1);
+  //   }
+  // }
+  // function plus2() {
+  //   if (num2 < 10) {
+  //     setNum2(num2 + 1);
+  //   }
+  // }
+  // const [num3, setNum3] = React.useState(0);
+  // function mins3() {
+  //   if (num3 > 0) {
+  //     setNum3(num3 - 1);
+  //   }
+  // }
+  // function plus3() {
+  //   if (num3 < 10) {
+  //     setNum3(num3 + 1);
+  //   }
+  // }
+  // let section = [];
+  // if (num1 > 0) {
+  //   section.push(`REG(${num1})`);
+  // }
+  // if (num2 > 0) {
+  //   section.push(`VIP(${num2})`);
+  // }
+  // if (num3 > 0) {
+  //   section.push(`VVIP(${num3})`);
+  // }
   let ticket = "";
-  section.length > 0 ? (ticket = section.join(", ")) : (ticket = "-");
+  data.length > 0 ? (ticket = data.join(", ")) : (ticket = "-");
   return (
     <div className="md:bg-[#9CDBA6]">
       <div className="navbar">
@@ -99,64 +161,24 @@ function Ticket() {
                   </button>
                 </div>
               </div>
-              {data.map((item) => {
-                return (
-                  <div className="">
-                    <div className="flex items-center mb-[16px]">
-                      <div className="h-[45px] w-[45px] bg-[#DEF9C4] border-2 border-[#468585] flex items-center justify-center rounded-[10px] mr-[16px] text-[#468585]">
-                        <FaTicket />
-                      </div>
-                      <div className="flex justify-between w-full">
-                        <div className="flex flex-col gap-[4px]">
-                          <div className="text-sm text-[#468585] font-semibold">
-                            {item.name}
-                          </div>
-                          <div className="text-xs text-[#50B498]">
-                            {item.quantity + " Seats available"}
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-[1px] items-center">
-                          <div className="text-[#468585] font-semibold tracking-[1px]">
-                            {"Rp " + item.price}
-                          </div>
-                          <div className="text-xs tracking-[0.5] text-[#50B498]">
-                            per person
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center mb-[50px]">
-                      <div className="pl-[60px] text-[#468585] tracking-[1px] text-xs font-semibold">
-                        Quantity
-                      </div>
-                      <div className="flex gap-[20px] items-center">
-                        <button
-                          type="button"
-                          onClick={mins1}
-                          className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                        >
-                          -
-                        </button>
-                        <div className="text-[#468585]">{num1}</div>
-                        <button
-                          type="button"
-                          onClick={plus1}
-                          className="border border-solid w-[36px] h-[32px] border-[#468585] rounded-[6px] text-[#468585]"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+              {data.map((item,index) => {
+              return (
+                <Section
+                  key={item.id}
+                  data={item}
+                  index={index}
+                  currentData={selectedSections}
+                  onChange={setSelectedSections}
+                />
+              );
+            })}
             </div>
             <div className="text-sm flex justify-between mb-[16px]">
               <div className="text-[#468585] tracking-[1px] font-semibold">
                 Ticket Section
               </div>
               <div className="text-[#468585] tracking-[1px] font-semibold">
-                {ticket}
+                {ticketSection.length == 0 ? "-" : ticketSection.join(", ")}
               </div>
             </div>
             <div className="text-sm flex justify-between mb-[16px]">
@@ -164,9 +186,7 @@ function Ticket() {
                 Quantity
               </div>
               <div className="text-[#468585] tracking-[1px] font-semibold">
-                {num1 === 0 && num2 === 0 && num3 === 0
-                  ? "-"
-                  : num1 + num2 + num3}
+                {quantity === 0 ? "-" : quantity}
               </div>
             </div>
             <div className="text-sm flex justify-between mb-[50px]">
@@ -174,14 +194,11 @@ function Ticket() {
                 Total Payment
               </div>
               <div className="text-[#468585] tracking-[1px] font-semibold">
-                {num1 === 0 && num2 === 0 && num3 === 0
-                  ? "-"
-                  : "Rp " + (num1 * 100000 + num2 * 500000 + num3 * 1000000)}
+                {price === 0 ? "-" : `Rp. ${price.toLocaleString("id")}`}
               </div>
             </div>
             <Link to="/payment">
               <button
-                type="submit"
                 className="h-[55px] w-full md:max-w-[315px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
               >
                 Checkout
@@ -193,6 +210,7 @@ function Ticket() {
       <div className="">
         <Footer />
       </div>
+      {/* {wait ? <Loading /> : ""} */}
     </div>
   );
 }

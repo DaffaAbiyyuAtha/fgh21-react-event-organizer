@@ -9,29 +9,79 @@ import bank from "../assets/img/bank.svg";
 import retail from "../assets/img/retail.svg";
 import money from "../assets/img/money.svg";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { 
+  FaCreditCard,
+  FaBuildingColumns,
+  FaStore,
+  FaDollarSign
+ } from "react-icons/fa6";
 
 function Payment() {
+  const navigate = useNavigate();
+  const dataToken = useSelector((state) => state.auth.token);
+  const totalPayment = useSelector((state) => state.sectionSelector.totalPayment);
+  const totalQuantity = useSelector((state) => state.sectionSelector.qty);
+  const dataTicket = useSelector((state) => state.sectionSelector.ticketSection);
+  const dataEvent = useSelector((state) => state.sectionSelector.eventTitle);
+  const dataQuantity = useSelector((state) => state.sectionSelector.quantity);
+  const dataSection = useSelector((state) => state.sectionSelector.sectionId);
+  const dataId = useSelector((state) => state.sectionSelector.eventId)
+  const [selectedPayment, setSelectedPayment] = React.useState(null);
+  const [message, setMessage] = React.useState("");
+  async function pay(e) {
+    e.preventDefault();
+
+    if (!selectedPayment) {
+      setMessage("You must choose one payment method!");
+      return;
+    }
+
+    const eventId = dataId.id
+    const methodPayment = selectedPayment;
+    const quantity = parseInt(dataQuantity)
+    const section = parseInt(dataSection)
+    const form = new URLSearchParams();
+    form.append("eventId", eventId);
+    form.append("paymentId", methodPayment);
+    form.append("sectionId", section);
+    form.append("ticketQuantity", quantity);
+
+    const dataProfile = await fetch("http://localhost:8080/transactions/", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + dataToken,
+      },
+      body: form,
+    });
+    const listData = await dataProfile.json();
+    navigate("/my-booking");
+  }
   return (
     <div className="md:bg-[#9CDBA6]">
       <Navbar />
       <div className="">
-        <div className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-[#DEF9C4] rounded-[30px] p-10">
+        <form onSubmit={pay} className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-[#DEF9C4] rounded-[30px] p-10">
           <div className="md:w-1/2 h-[486px] md:mr-[88px] mb-20">
             <div className="text-[#468585] tracking-[1px] font-semibold text-xl mb-[50px]">
               Payment Method
             </div>
+            <div className="text-red-600 mb-5">{message}</div>
             <label
               htmlFor="card"
               className="flex justify-between items-center mb-[16px]"
             >
               <div className="flex gap-[16px] items-center">
-                <input type="radio" name="card" id="card" />
-                <span className="">
-                  <img
-                    src={card}
-                    alt=""
-                    className="p-[10px] bg-[#E7DBFF] rounded-[10px]"
-                  />
+                <input 
+                  type="radio" 
+                  name="card" 
+                  id="card" 
+                  value={1}
+                  onChange={() => setSelectedPayment(1)}
+                />
+                <span className="flex items-center justify-center bg-[#884DFF]/20 w-11 h-11 rounded-lg">
+                  <FaCreditCard className="h-5 w-5 text-[#884DFF]"/>
                 </span>
                 <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   Card
@@ -54,13 +104,15 @@ function Payment() {
               className="flex justify-between items-center mb-[16px]"
             >
               <div className="flex gap-[16px] items-center">
-                <input type="radio" name="card" id="bank" />
-                <span className="">
-                  <img
-                    src={bank}
-                    alt=""
-                    className="p-[11px] bg-[#FECFDD] rounded-[10px]"
-                  />
+                <input 
+                  type="radio" 
+                  name="card" 
+                  id="bank" 
+                  value={2}
+                  onChange={() => setSelectedPayment(2)}
+                />
+                <span className="flex items-center justify-center bg-[#FC1055]/20 w-11 h-11 rounded-lg">
+                  <FaBuildingColumns className="h-5 w-5 text-[#FC1055]"/>
                 </span>
                 <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   Bank Transfer
@@ -75,13 +127,15 @@ function Payment() {
               className="flex justify-between items-center mb-[16px]"
             >
               <div className="flex gap-[16px] items-center">
-                <input type="radio" name="card" id="retail" />
-                <span className="">
-                  <img
-                    src={retail}
-                    alt=""
-                    className="pt-[10px] pb-[10px] pl-[13px] pr-[13px] bg-[#FFE7CC] rounded-[10px]"
-                  />
+                <input 
+                  type="radio" 
+                  name="card" 
+                  id="retail" 
+                  value={3}
+                  onChange={() => setSelectedPayment(3)}
+                />
+                <span className="flex items-center justify-center bg-[#FF8900]/20 w-11 h-11 rounded-lg">
+                  <FaStore className="h-5 w-5 text-[#FF8900]"/>
                 </span>
                 <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   Retail
@@ -96,13 +150,15 @@ function Payment() {
               className="flex justify-between items-center mb-[16px]"
             >
               <div className="flex gap-[16px] items-center">
-                <input type="radio" name="card" id="money" />
-                <span className="">
-                  <img
-                    src={money}
-                    alt=""
-                    className="pt-[10px] pb-[10px] pl-[11px] pr-[11px] bg-[#D6E0FF] rounded-[10px]"
-                  />
+                <input 
+                  type="radio" 
+                  name="card" 
+                  id="money" 
+                  value={4}
+                  onChange={() => setSelectedPayment(4)}
+                />
+                <span className="flex items-center justify-center bg-[#3366FF]/20 w-11 h-11 rounded-lg">
+                  <FaDollarSign className="h-5 w-5 text-[#3366FF]"/>
                 </span>
                 <span className="font-semibold text-[#468585] tracking-[1px] text-sm">
                   E-Money
@@ -122,7 +178,7 @@ function Payment() {
                 Event
               </div>
               <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
-                Sights & Sounds Exhibition
+                {dataEvent}
               </div>
             </div>
             <div className="flex justify-between gap-4 mb-[16px]">
@@ -130,7 +186,7 @@ function Payment() {
                 Ticket Section
               </div>
               <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
-                VIP
+                {dataTicket}
               </div>
             </div>
             <div className="flex justify-between mb-[16px]">
@@ -138,7 +194,7 @@ function Payment() {
                 Quantity
               </div>
               <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
-                2
+                {totalQuantity}
               </div>
             </div>
             <div className="flex justify-between mb-[50px]">
@@ -146,19 +202,17 @@ function Payment() {
                 Total Payment
               </div>
               <div className="text-sm text-[#50B498] tracking-[0.5px] font-semibold">
-                $70
+                {`Rp. ${totalPayment.toLocaleString("id")}`}
               </div>
             </div>
-            <Link to="/my-booking">
               <button
                 type="submit"
                 className="w-full h-[50px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
               >
                 Payment
               </button>
-            </Link>
           </div>
-        </div>
+        </form>
       </div>
       <Footer />
     </div>

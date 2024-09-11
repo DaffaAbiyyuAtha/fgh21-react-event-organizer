@@ -1,10 +1,9 @@
 import React from "react";
-import profile from "../../img/profile.svg";
 import profileLogout from "../../img/profile-logout.svg";
-import profileCreate from "../../img/profile-create.svg";
+import profile from "../../img/profile-circle.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPen, FaUser, FaAddressCard, FaLockOpen } from "react-icons/fa";
-import { FaCirclePlus, FaBook, FaHeart, FaGear } from "react-icons/fa6";
+import { FaCirclePlus, FaBook, FaHeart, FaGear, FaRightFromBracket } from "react-icons/fa6";
 import { FaEraser } from "react-icons/fa6";
 import { logout } from "../../../redux/reducers/auth";
 import { removeData } from "../../../redux/reducers/profile";
@@ -23,18 +22,28 @@ function Sidebar() {
   return (
     <div className="hidden md:flex flex-col p-6">
       <div className="flex gap-[16px]">
-        <div className="">
-          <img
-            src={dataProfile.picture}
-            alt=""
-            className="rounded-full border-2 w-12 h-12 border-[#468585]"
-          />
-        </div>
-        <div className="flex flex-col gap-[8px] items-center mb-[50px]">
-          <div className="text-sm text-[#468585] font-semibold ">
-            {dataProfile.name}
+        {dataProfile.profile[0].picture === null ? (
+          <div className="flex justify-center">
+            <img
+              src={profile}
+              alt=""
+              className="rounded-full border-2 w-12 h-12 border-[#468585]"
+            />
           </div>
-          <div className="text-xs text-[#DEF9C4]">Entrepreneur, ID</div>
+        ) : (
+          <div className="flex justify-center">
+            <img
+              src={dataProfile.profile[0].picture}
+              alt=""
+              className="rounded-full border-2 w-12 h-12 border-[#468585]"
+            />
+          </div>
+        )}
+        <div className="flex flex-col gap-[8px] mb-[50px]">
+          <div className="text-[#468585] font-semibold text-base">
+          {dataProfile.profile[0].full_name}
+          </div>
+          <div className="text-xs text-[#DEF9C4]">{dataProfile.profile[0].profession}</div>
         </div>
       </div>
       <div className="flex gap-[24px] hover:text-[#468585] items-center text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
@@ -95,11 +104,11 @@ function Sidebar() {
         </div>
         <div className="">Settings</div>
       </div>
-      <div className="flex gap-[24px] text-[#373A42] tracking-[1px] font-semibold mb-[28px]">
+      <div className="hover:text-red-600 items-center flex gap-[24px] text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
         <div className="">
-          <img src={profileLogout} alt="" />
+          <FaRightFromBracket />
         </div>
-        <button onClick={clearData} className="text-[#F03800]">
+        <button onClick={clearData} className="">
           Logout
         </button>
       </div>

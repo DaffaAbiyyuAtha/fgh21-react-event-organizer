@@ -13,7 +13,6 @@ import { datas } from "../redux/reducers/profile";
 import { FaEye } from "react-icons/fa6";
 import Loading from "../assets/component/content/Loading";
 import { data } from "autoprefixer";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function Login() {
   const [wait, setWait] = React.useState(false);
@@ -24,7 +23,8 @@ function Login() {
     dataLogin.preventDefault();
     const email = dataLogin.target.email.value;
     const password = dataLogin.target.password.value;
-
+    
+    setWait(true);
     const form = new URLSearchParams();
     form.append("email", email);
     form.append("password", password);
@@ -35,10 +35,9 @@ function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setWait(true);
         if (data.success === true) {
           dispatch(login(data.result.token));
-          console.log(data.result.token);
+          console.log(data.message)
           async function profile() {
             const dataProfile = await fetch("http://localhost:8080/profile/", {
               headers: {
@@ -51,15 +50,16 @@ function Login() {
             console.log(listData.result[0]);
 
             navigate("/");
-            setWait(false);
           }
           profile();
         } else {
+          console.log(data.message)
           setMessage(data.message);
           setWait(false);
         }
       })
       .catch((err) => {
+        console.log(data.message)
         console.log(err);
       });
   }

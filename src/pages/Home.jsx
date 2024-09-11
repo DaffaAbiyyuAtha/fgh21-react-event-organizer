@@ -35,6 +35,7 @@ function Home() {
   const updateDataEvent = useSelector((state) => state.event.data);
   const dispatch = useDispatch();
   const [add, setAll] = React.useState(true);
+  const [wait, setWait] = React.useState(false);
   const [category, setCategory] = React.useState([]);
   const [location, setLocation] = React.useState([]);
   const [partner, setPartner] = React.useState([]);
@@ -95,29 +96,29 @@ function Home() {
           </div>
           <div className="mb-[50px]">
             <div className="flex gap-11 justify-center">
-              <div className="md:flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hidden">
+              <button type="button" className="md:flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hover:font-medium hover:text-[#468585] hover:border-[#468585] hover:border-2 hidden">
                 <div>13</div>
                 <div>Mon</div>
-              </div>
-              <div className="flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s ">
+              </button>
+              <button type="button" className="flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hover:font-medium hover:text-[#468585] hover:border-[#468585] hover:border-2">
                 <div>14</div>
                 <div>Tue</div>
-              </div>
-              <div className="flex flex-col font-medium gap-3 items-center border-2 w-16 h-21 pt-2 pb-2 rounded-xl text-[#468585] text-s border-[#468585]">
+              </button>
+              <button type="button" className="flex flex-col font-medium gap-3 items-center border-2 w-16 h-21 pt-2 pb-2 rounded-xl text-[#468585] text-s border-[#468585]">
                 <div>15</div>
                 <div>Wed</div>
                 <div>
                   <BsDot />
                 </div>
-              </div>
-              <div className="flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s ">
+              </button>
+              <button type="button" className="flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hover:font-medium hover:text-[#468585] hover:border-[#468585] hover:border-2">
                 <div>16</div>
                 <div>Thu</div>
-              </div>
-              <div className="md:flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hidden">
+              </button>
+              <button type="button" className="md:flex flex-col gap-3 text-[#50B498] items-center w-16 h-21 pt-2 pb-2 rounded-xl text-s hover:font-medium hover:text-[#468585] hover:border-[#468585] hover:border-2 hidden">
                 <div>17</div>
                 <div>Fri</div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -334,7 +335,7 @@ function Home() {
           {partner.map((item) => {
             return (
               <div>
-                <img src={item.image} alt="" />
+                <img src={item.image} alt="" className="w-24 h-24 rounded-lg" />
               </div>
             );
           })}

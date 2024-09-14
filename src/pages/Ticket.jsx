@@ -23,12 +23,14 @@ import { addQty,
   addSectionId,
   addQuantity } from "../redux/reducers/sectionSelector";
 
-function Ticket() {
-  const dispatch = useDispatch();
-  const id = useParams("id");
-  const [data, setData] = React.useState([]);
-  // const [section, setSection] = React.useState([]);
-  const [wait, setWait] = React.useState(false);
+  
+  function Ticket() {
+    const dispatch = useDispatch();
+    const id = useParams("id");
+    const [data, setData] = React.useState([]);
+    // const [section, setSection] = React.useState([]);
+    const [wait, setWait] = React.useState(false);
+    const [message, setMessage] = React.useState("");
 
   async function datas() {
     const dataSection = await fetch(
@@ -131,6 +133,15 @@ function Ticket() {
   // if (num3 > 0) {
   //   section.push(`VVIP(${num3})`);
   // }
+
+  const handleCheckout = () => {
+    if (price === 0) {
+      setMessage("Please select at least one ticket to proceed.");
+    } else {
+      setMessage("");
+    }
+  };
+
   let ticket = "";
   data.length > 0 ? (ticket = data.join(", ")) : (ticket = "-");
   return (
@@ -161,6 +172,7 @@ function Ticket() {
                   </button>
                 </div>
               </div>
+              <div className="text-red-600 mb-5">{message}</div>
               {data.map((item,index) => {
               return (
                 <Section
@@ -197,13 +209,22 @@ function Ticket() {
                 {price === 0 ? "-" : `Rp. ${price.toLocaleString("id")}`}
               </div>
             </div>
-            <Link to="/payment">
+            {price > 0 ? (
+              <Link to="/payment">
+                <button
+                  className="h-[55px] w-full md:max-w-[315px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
+                >
+                  Checkout
+                </button>
+              </Link>
+            ) : (
               <button
+                onClick={handleCheckout}
                 className="h-[55px] w-full md:max-w-[315px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
               >
                 Checkout
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>

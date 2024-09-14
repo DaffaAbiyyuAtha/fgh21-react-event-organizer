@@ -13,10 +13,13 @@ import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateEvent from "./pages/CreateEvent";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import  {store}  from "./redux/store";
+import {persistStore} from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+const persistor = persistStore(store)
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,7 +78,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   );
 }

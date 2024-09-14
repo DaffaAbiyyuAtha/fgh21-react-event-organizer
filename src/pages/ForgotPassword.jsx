@@ -56,7 +56,7 @@ function Login() {
                   name="email"
                   id="email"
                   placeholder="Email"
-                  className="w-full rounded-[15px] h-[55px] border border-[#C1C5D0] border-solid rounded-[15px] justify-center pl-[25px] pr-[25px] tracking-[1px]"
+                  className="w-full rounded-[15px] h-[55px] border border-[#C1C5D0] border-solid justify-center pl-[25px] pr-[25px] tracking-[1px]"
                 />
               </div>
               <div className="">

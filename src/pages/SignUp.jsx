@@ -139,7 +139,7 @@ function Login() {
                 />
               </div>
               <div className="">
-                <div className="border-[#468585] text-[#468585] bg-transparent border-2 rounded-2xl flex w-full items-center border-2 h-14 px-6 rounded-2xl overflow-hidden ">
+                <div className="border-[#468585] text-[#468585] bg-transparent border-2 rounded-2xl flex w-full items-center h-14 px-6 overflow-hidden ">
                   <input
                     type={pass}
                     name="password"
@@ -157,7 +157,7 @@ function Login() {
                 </div>
               </div>
               <div className="">
-                <div className="border-[#468585] text-[#468585] bg-transparent border-2 rounded-2xl flex w-full items-center border-2 h-14 px-6 rounded-2xl overflow-hidden ">
+                <div className="border-[#468585] text-[#468585] bg-transparent border-2 rounded-2xl flex w-full items-center h-14 px-6 overflow-hidden ">
                   <input
                     type={confirmpass}
                     name="confirmPass"

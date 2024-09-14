@@ -48,9 +48,9 @@ import { useNavigate } from "react-router-dom";
 //   UpdateProfile()
 function Profile() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const dataToken = useSelector((state) => state.auth.token);
   const dataProfile = useSelector((state) => state.profile.data);
-  console.log(dataProfile)
   const [file, setFile] = React.useState(null);
   const [preview, setPreview] = React.useState(null);
   const [profiles, setProfile] = React.useState([]);
@@ -86,29 +86,31 @@ function Profile() {
     setProfile(listData.result);
     if (listData.success) {
       uploadImage()
+      profileDatas()
     }
   }
-  // async function profileData() {
-  //   const response = await fetch("http://localhost:8080/profile", {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: "Bearer " + dataToken,
-  //     },
-  //   });
-  //   const profileData = await response.json();
-  //   setProfile(profileData.result);
-  //   console.log(profileData.result)
-  // }
+
   async function profileDatas() {
-    const response = await fetch("http://localhost:8080/profile", {
-      method: "PATCH",
+    const response = await fetch("http://localhost:8080/profile/", {
+      method: "GET",
       headers: {
         Authorization: "Bearer " + dataToken,
       },
     });
     const profileData = await response.json();
-    setProfile(profileData.result);
+    dispatch(datas(profileData.result));
+    console.log(profileData)
   }
+
+  // async function profileDatas() {
+  //   const response = await fetch("http://localhost:8080/profile", {
+  //     method: "PATCH",
+  //     headers: {
+  //       Authorization: "Bearer " + dataToken,
+  //     },
+  //   });
+  //   const profileData = await response.json();
+  // }
 
   async function nationalitiesData() {
     const nationalities = await fetch("http://localhost:8080/nationalities/", {});
@@ -127,7 +129,7 @@ function Profile() {
   // }
 
   useEffect(() => {
-    // profile()
+    profileDatas()
     // profileData();
     nationalitiesData()
   }, []);
@@ -145,7 +147,7 @@ function Profile() {
       body,
     });
     const json = await response.json()
-    console.log(json)
+    profileDatas()
       
   }
   const handleFileChange = (e) => {

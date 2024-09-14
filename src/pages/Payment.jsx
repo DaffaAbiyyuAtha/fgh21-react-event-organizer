@@ -30,6 +30,15 @@ function Payment() {
   const dataId = useSelector((state) => state.sectionSelector.eventId)
   const [selectedPayment, setSelectedPayment] = React.useState(null);
   const [message, setMessage] = React.useState("");
+
+  const handleCheckout = () => {
+    if (dataToken === 0) {
+      setMessage("Please log in first!");
+    } else {
+      setMessage("");
+    }
+  };
+
   async function pay(e) {
     e.preventDefault();
 
@@ -37,6 +46,12 @@ function Payment() {
       setMessage("You must choose one payment method!");
       return;
     }
+
+    if (!dataToken) {
+      setMessage("Please log in first!");
+      return;
+    }
+
 
     const eventId = dataId.id
     const methodPayment = selectedPayment;
@@ -58,6 +73,7 @@ function Payment() {
     const listData = await dataProfile.json();
     navigate("/my-booking");
   }
+
   return (
     <div className="md:bg-[#9CDBA6]">
       <Navbar />
@@ -205,12 +221,21 @@ function Payment() {
                 {`Rp. ${totalPayment.toLocaleString("id")}`}
               </div>
             </div>
-              <button
-                type="submit"
-                className="w-full h-[50px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
-              >
-                Payment
-              </button>
+              {dataToken === null ? (
+                <button
+                  onClick={handleCheckout}
+                  className="w-full h-[50px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
+                >
+                  Payment
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full h-[50px] bg-[#468585] text-[#DEF9C4] rounded-[15px]"
+                >
+                  Payment
+                </button>
+              )} 
           </div>
         </form>
       </div>

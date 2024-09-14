@@ -4,10 +4,9 @@ import profile from "../../img/profile-circle.svg";
 import { Link, ScrollRestoration, useParams } from "react-router-dom";
 import toggle from "../../img/toggle.svg";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 function Navbar() {
-  // let { id } = useParams();
   const dataProfile = useSelector((state) => state.profile.data);
+  console.log(dataProfile)
   const tokens = useSelector((state) => state.auth.token);
   const [open, setOpen] = React.useState(true);
   function toggles() {
@@ -17,18 +16,6 @@ function Navbar() {
       setOpen(true);
     }
   }
-  // async function datas() {
-  //   const dataEvent = await fetch("http://localhost:8080/profile/" + id.id, {
-  //     headers: {
-  //       Authorization: "Bearer " + tokens,
-  //     },
-  //   });
-  //   const listData = await dataEvent.json();
-  //   setData(listData.result);
-  // }
-  // useEffect(() => {
-  //   datas();
-  // }, []);
   return (
     <div className="bg-[#DEF9C4] py-4 px-10 md:px-16 flex flex-col gap-4 md:justify-between md:flex-row w-full md:items-center">
       <div className="flex justify-between">

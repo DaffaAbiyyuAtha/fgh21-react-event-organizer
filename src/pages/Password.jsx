@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 
 function Profile() {
   const dataToken = useSelector((state) => state.auth.token);
-  let [pass, setPassword] = React.useState("password");
   const [message, setMessage] = React.useState(true)
+  let [pass, setPassword] = React.useState("password");
   function changePassword() {
     if (pass === "password") {
       setPassword("text");
@@ -35,8 +35,10 @@ function Profile() {
 
   async function changeNewPasswords(dataPassword) {
     dataPassword.preventDefault();
+    const oldPassword = dataPassword.target.password.value;
     const password = dataPassword.target.newpassword.value;
     const form = new URLSearchParams();
+    form.append("oldPassword", oldPassword)
     form.append("password", password);
     const dataPasswords = await fetch("http://localhost:8080/users/password/", {
       method: "PATCH",

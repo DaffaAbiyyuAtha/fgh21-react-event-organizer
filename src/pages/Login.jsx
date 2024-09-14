@@ -37,7 +37,6 @@ function Login() {
       .then((data) => {
         if (data.success === true) {
           dispatch(login(data.result.token));
-          console.log(data.message)
           async function profile() {
             const dataProfile = await fetch("http://localhost:8080/profile/", {
               headers: {
@@ -45,17 +44,12 @@ function Login() {
               },
             });
             const listData = await dataProfile.json();
-
             dispatch(datas(listData.result));
-            console.log(listData.result[0]);
-
             navigate("/");
           }
           profile();
         } else {
           console.log(data.message)
-          setMessage(data.message);
-          setWait(false);
         }
       })
       .catch((err) => {

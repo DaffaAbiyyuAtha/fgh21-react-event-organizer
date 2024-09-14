@@ -126,11 +126,11 @@ function Home() {
           {updateDataEvent.map((item) => {
             return (
               <Link to={`/events/${item.id}`}>
-                <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative overflow-hidden">
+                <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative">
                   <img
                     src={item.image}
                     alt=""
-                    className="flex relative w-full h-full overflow-hidden rounded-[40px] relative mb-[52px] overflow-hidden"
+                    className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px]"
                   />
                   <div className="absolute bg-gradient-to-t from-black ... w-[260px] h-[376px]">
                     <div className="flex flex-col justify-end h-full gap-6 ml-6 pb-7">
@@ -238,16 +238,16 @@ function Home() {
             <img src={cars} alt="" />
             <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4 pb-4">
               <div className="flex mb-[8px] mt-[-16px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile1} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile2} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile3} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] relative overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
                   <img src={profile4} alt="" />
                   <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
                     62+
@@ -266,16 +266,16 @@ function Home() {
             <img src={cars} alt="" />
             <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4 pb-4">
               <div className="flex mb-[8px] mt-[-16px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile1} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile2} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile3} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] relative overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
                   <img src={profile4} alt="" />
                   <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
                     62+
@@ -294,16 +294,16 @@ function Home() {
             <img src={cars} alt="" />
             <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4 pb-4">
               <div className="flex mb-[8px] mt-[-16px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile1} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile2} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
                   <img src={profile3} alt="" />
                 </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border border-2 border-solid border-[#468585] relative overflow-hidden">
+                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
                   <img src={profile4} alt="" />
                   <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
                     62+

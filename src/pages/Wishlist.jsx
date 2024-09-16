@@ -5,11 +5,20 @@ import Sidebar from "../assets/component/content/Sidebar";
 import { FaHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Wishlist() { 
   const dataToken = useSelector((state) => state.auth.token);
   const [wishlist, setWishlist] = React.useState([])
   let {id} = useParams()
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!dataToken) {
+      navigate("/login");
+      return;
+    }
+  }, [dataToken, navigate]);
 
   async function wish(){
     const datawish = await fetch('http://localhost:8080/wishlist/'+ id,{

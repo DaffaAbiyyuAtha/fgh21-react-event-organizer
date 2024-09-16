@@ -4,9 +4,19 @@ import Footer from "../assets/component/content/Footer";
 import Sidebar from "../assets/component/content/Sidebar";
 import { FaEye } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Profile() {
+  const navigate = useNavigate();
   const dataToken = useSelector((state) => state.auth.token);
+  console.log(dataToken)
+  useEffect(() => {
+    if (!dataToken) {
+      navigate("/login");
+      return;
+    }
+  }, [dataToken, navigate]);
   const [message, setMessage] = React.useState(true)
   let [pass, setPassword] = React.useState("password");
   function changePassword() {

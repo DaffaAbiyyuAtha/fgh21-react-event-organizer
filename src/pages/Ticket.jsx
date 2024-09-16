@@ -133,7 +133,7 @@ import { addQty,
   // if (num3 > 0) {
   //   section.push(`VVIP(${num3})`);
   // }
-
+ 
   const handleCheckout = () => {
     if (price === 0) {
       setMessage("Please select at least one ticket to proceed.");

@@ -21,31 +21,33 @@ function Sidebar() {
   }
   return (
     <div className="hidden md:flex flex-col p-6">
-      <div className="flex gap-[16px]">
-        {dataProfile.profile[0].picture === null ? (
-          <div className="flex justify-center">
-            <img
-              src={profile}
-              alt=""
-              className="rounded-full border-2 w-12 h-12 border-[#468585]"
-            />
+      {dataProfile?.profile && (
+        <div className="flex gap-[16px]">
+          {dataProfile.profile[0].picture === null ? (
+            <div className="flex justify-center">
+              <img
+                src={profile}
+                alt=""
+                className="rounded-full border-2 w-12 h-12 border-[#468585]"
+              />
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <img
+                src={dataProfile.profile[0].picture}
+                alt=""
+                className="rounded-full border-2 w-12 h-12 border-[#468585]"
+              />
+            </div>
+          )}
+          <div className="flex flex-col gap-[8px] mb-[50px]">
+            <div className="text-[#468585] font-semibold text-base">
+            {dataProfile.profile[0].full_name}
+            </div>
+            <div className="text-xs text-[#DEF9C4]">{dataProfile.profile[0].profession}</div>
           </div>
-        ) : (
-          <div className="flex justify-center">
-            <img
-              src={dataProfile.profile[0].picture}
-              alt=""
-              className="rounded-full border-2 w-12 h-12 border-[#468585]"
-            />
-          </div>
-        )}
-        <div className="flex flex-col gap-[8px] mb-[50px]">
-          <div className="text-[#468585] font-semibold text-base">
-          {dataProfile.profile[0].full_name}
-          </div>
-          <div className="text-xs text-[#DEF9C4]">{dataProfile.profile[0].profession}</div>
         </div>
-      </div>
+      )}
       <div className="flex gap-[24px] hover:text-[#468585] items-center text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
         <div className="">
           <FaUser />

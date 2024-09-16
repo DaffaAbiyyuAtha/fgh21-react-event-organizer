@@ -5,11 +5,21 @@ import Sidebar from "../assets/component/content/Sidebar";
 import Popup from "../assets/component/content/Popup";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CreateEvent() {
   const dataToken = useSelector((state) => state.auth.token);
   const [show, setShow] = React.useState(true);
   const [event, setEvent] = React.useState([]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!dataToken) {
+      navigate("/login");
+      return;
+    }
+  }, [dataToken, navigate]);
+
   function popUps() {
     if (show === true) {
       setShow(false);
@@ -17,7 +27,6 @@ function CreateEvent() {
       setShow(true);
     }
   }
-
   
   useEffect(() => {
     async function createEventByUser() {

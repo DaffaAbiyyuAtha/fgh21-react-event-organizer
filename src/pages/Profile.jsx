@@ -8,44 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { datas } from "../redux/reducers/profile";
 import { useNavigate } from "react-router-dom";
 
-// function Profile() {
-//   const dataToken = useSelector((state) => state.auth.token);
-//   const dataProfile = useSelector((state) => state.profile.data);
-//   const [profiles, setProfile] = React.useState([]);
-//   async function dataProfiles() {
-//     const dataProfile = await fetch("http://localhost:8080/profile/", {
-//       method: "GET",
-//       headers: {
-//         Authorization: "Bearer " + dataToken,
-//       },
-//     });
-//     const listData = await dataProfile.json();
-//     setProfile(listData.result);
-//   }
-//   useEffect(() => {
-//     dataProfiles();
-//   }, []);
-//   async function UpdateProfile(e) {
-//     e.preventDefault();
-//     const name = e.target.name.value
-//     const email = e.target.email.value;
-//     const phone = e.target.phone.value;
-//     const profession = e.target.profession.value;
-//     const form = new URLSearchParams();
-//     form.append("name", name);
-//     form.append("email", email);
-//     form.append("phone", phone);
-//     form.append("profession", profession);
-//     const dataProfile = await fetch("http://localhost:8080/profile/update", {
-//       method: "GET",
-//       headers: {
-//         Authorization: "Bearer " + dataToken,
-//       },
-//     });
-//     const listData = await dataProfile.json();
-//     setProfile(listData.result);
-//   }
-//   UpdateProfile()
 function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,6 +19,16 @@ function Profile() {
   const [nationality, setNationality] = React.useState([]);
   const [message, setMessage] = React.useState(true);
   
+  useEffect(() => {
+    if (!dataToken) {
+      navigate("/login");
+      return;
+    }
+
+    profileDatas()
+    nationalitiesData()
+  }, [dataToken, navigate]);
+
   async function updateProfiles(e) {
     e.preventDefault();
     const name = e.target.name.value;
@@ -102,37 +74,12 @@ function Profile() {
     console.log(profileData)
   }
 
-  // async function profileDatas() {
-  //   const response = await fetch("http://localhost:8080/profile", {
-  //     method: "PATCH",
-  //     headers: {
-  //       Authorization: "Bearer " + dataToken,
-  //     },
-  //   });
-  //   const profileData = await response.json();
-  // }
-
   async function nationalitiesData() {
     const nationalities = await fetch("http://localhost:8080/nationalities/", {});
     const dataNationality = await nationalities.json();
     setNationality(dataNationality.result);
   }
 
-  // async function profile() {
-  //   const dataProfile = await fetch("http://localhost:8080/profile/", {
-  //     headers: {
-  //       Authorization: "Bearer " + dataToken,
-  //     },
-  //   });
-  //   const listData = await dataProfile.json();
-  //   dispatch(datas(listData.result));
-  // }
-
-  useEffect(() => {
-    profileDatas()
-    // profileData();
-    nationalitiesData()
-  }, []);
 
   async function uploadImage() {
 
@@ -193,13 +140,15 @@ function Profile() {
                           <label htmlFor="name">Name</label>
                         </td>
                         <td className="">
-                          <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            defaultValue={dataProfile.profile[0].full_name}
-                            className="h-[55px] w-full sborder border-2 text-[#468585] border-[#468585] bg-transparent rounded-[16px] pl-[25px] pr-[25px] mb-5"
-                          />
+                          {dataProfile?.profile && (
+                            <input
+                              type="text"
+                              name="name"
+                              id="name"
+                              defaultValue={dataProfile.profile[0].full_name}
+                              className="h-[55px] w-full sborder border-2 text-[#468585] border-[#468585] bg-transparent rounded-[16px] pl-[25px] pr-[25px] mb-5"
+                            />
+                          )}
                         </td>
                       </tr>
                       <tr className="flex flex-col md:table-row">
@@ -207,13 +156,15 @@ function Profile() {
                           <label htmlFor="username">Username</label>
                         </td>
                         <td className="">
-                          <input
-                            type="text"
-                            name="username"
-                            id="username"
-                            defaultValue={dataProfile.user.username}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
-                          />
+                          {dataProfile?.user && (
+                            <input
+                              type="text"
+                              name="username"
+                              id="username"
+                              defaultValue={dataProfile.user.username}
+                              className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
+                            />
+                          )}
                         </td>
                       </tr>
                       <tr className="flex flex-col md:table-row">
@@ -221,13 +172,15 @@ function Profile() {
                           <label htmlFor="email">Email</label>
                         </td>
                         <td className="">
-                          <input
-                            type="text"
-                            name="email"
-                            id="email"
-                            defaultValue={dataProfile.user.email}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
-                          />
+                          {dataProfile?.user && (
+                            <input
+                              type="text"
+                              name="email"
+                              id="email"
+                              defaultValue={dataProfile.user.email}
+                              className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
+                            />
+                          )}
                         </td>
                       </tr>
                       <tr className="flex flex-col md:table-row">
@@ -235,13 +188,15 @@ function Profile() {
                           <label htmlFor="phone">Phone Number</label>
                         </td>
                         <td className="">
-                          <input
-                            type="text"
-                            name="phone"
-                            id="phone"
-                            defaultValue={dataProfile.profile[0].phone_number}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
-                          />
+                          {dataProfile?.profile && (
+                            <input
+                              type="text"
+                              name="phone"
+                              id="phone"
+                              defaultValue={dataProfile.profile[0].phone_number}
+                              className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5"
+                            />
+                          )}
                         </td>
                       </tr>
                       <tr className="flex flex-col md:table-row">
@@ -249,23 +204,27 @@ function Profile() {
                           Gender
                         </td>
                         <td className="text-sm tracking-[1px] text-[#468585] pt-[48px] flex gap-[12px]">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="male"
-                            value="1"
-                            defaultChecked={dataProfile.profile[0].gender === 1}
-                          />
+                          {dataProfile?.profile && (
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="male"
+                              value="1"
+                              defaultChecked={dataProfile.profile[0].gender === 1}
+                            />
+                          )}
                           <label htmlFor="male" className="mr-[25px]">
                             Male
                           </label>
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="female"
-                            value="2"
-                            defaultChecked={dataProfile.profile[0].gender === 2}
-                          />
+                          {dataProfile?.profile && (
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="female"
+                              value="2"
+                              defaultChecked={dataProfile.profile[0].gender === 2}
+                            />
+                          )}
                           <label htmlFor="female">Female</label>
                         </td>
                       </tr>
@@ -274,13 +233,15 @@ function Profile() {
                           <label htmlFor="profession">Profession</label>
                         </td>
                         <td className="">
-                          <input
-                            type="text"
-                            name="profession"
-                            id="profession"
-                            defaultValue={dataProfile.profile[0].profession}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5 mt-5"
-                          ></input>
+                          {dataProfile?.profile && (
+                            <input
+                              type="text"
+                              name="profession"
+                              id="profession"
+                              defaultValue={dataProfile.profile[0].profession}
+                              className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5 mt-5"
+                            />
+                          )}
                         </td>
                       </tr>
                       <tr className="flex flex-col md:table-row">
@@ -288,59 +249,24 @@ function Profile() {
                           <label htmlFor="nationality">Nationality</label>
                         </td>
                         <td className="">
-                          <select
-                            name="nationality"
-                            id="nationality"
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5 mt-5"
-                          >
-                            <option value="0">Select Your Nationality</option>
-                            {nationality.map((items) => {
-                              return (
-                                <option 
-                                  selected = {items.id === dataProfile.profile[0].nationality_id ? true : false}
-                                  value={items.id}>{items.name}</option>
-                              )
-                            })}
-                          </select>
+                          {dataProfile?.profile && (
+                            <select
+                              name="nationality"
+                              id="nationality"
+                              className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px] mb-5 mt-5"
+                            >
+                              <option value="0">Select Your Nationality</option>
+                              {nationality.map((items) => {
+                                return (
+                                  <option 
+                                    selected = {items.id === dataProfile.profile[0].nationality_id ? true : false}
+                                    value={items.id}>{items.name}</option>
+                                )
+                              })}
+                            </select>
+                            )}
                         </td>
                       </tr>
-                      {/* <tr className="flex flex-col md:table-row">
-                        <td className="text-sm tracking-[1px] text-[#468585]">
-                          <label htmlFor="name">Nationality</label>
-                        </td>
-                        <td className="">
-                          <select
-                            name="name"
-                            id="name"
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
-                          >
-                            {nasionality.map((country) => {
-                              return (
-                                <option
-                                  value={dataProfile.nasionality}
-                                  selected
-                                >
-                                  {country.name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        </td>
-                      </tr> */}
-                      {/* <tr className="flex flex-col md:table-row">
-                        <td className="text-sm tracking-[1px] text-[#468585]">
-                          <label htmlFor="birthday">Birthday Date</label>
-                        </td>
-                        <td className="">
-                          <input
-                            type="date"
-                            name="birthday"
-                            id="birthday"
-                            defaultValue={dataProfile.profile[0].birth_date}
-                            className="h-[55px] text-[#468585] border-[#468585] bg-transparent w-full sborder border-2 rounded-[16px] pl-[25px] pr-[25px]"
-                          />
-                        </td>
-                      </tr> */}
                       <div className="pt-[50px] w-full ">
                         <button
                           type="submit"
@@ -353,39 +279,41 @@ function Profile() {
                   </table>
                 </div>
               </div>
-              <div className="w-1/3 hidden md:block">
-                {dataProfile.profile[0].picture === null ? (
-                  <div className="flex justify-center">
-                    <img
-                      src={profile}
-                      alt=""
-                      className="h-[136px] w-[136px]  rounded-full mb-[50px]"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex justify-center">
-                    <img
-                      src={dataProfile.profile[0].picture}
-                      alt=""
-                      className="h-[136px] w-[136px]  rounded-full mb-[50px]"
-                    />
-                  </div>
-                )} 
-                <form action="">
-                  <label htmlFor="file" className="flex items-center justify-center h-[40px] w-full border-2 border-[#468585] rounded-[10px] text-sm tracking-[1px] text-[#468585] font-semibold mb-[25px]">
-                    <div>
-                      Choose Photo
+              {dataProfile?.profile && (
+                <div className="w-1/3 hidden md:block">
+                  {dataProfile.profile[0].picture === null ? (
+                    <div className="flex justify-center">
+                      <img
+                        src={profile}
+                        alt=""
+                        className="h-[136px] w-[136px]  rounded-full mb-[50px]"
+                      />
                     </div>
-                  </label>
-                  <input type="file" name="file" id="file" className="hidden" onChange={handleFileChange}/>
-                </form>
-                <div className="text-xs text-[#50B498] tracking-[0.5px] mb-[16px]">
-                  Image size: max, 2 MB
+                  ) : (
+                    <div className="flex justify-center">
+                      <img
+                        src={dataProfile.profile[0].picture}
+                        alt=""
+                        className="h-[136px] w-[136px]  rounded-full mb-[50px]"
+                      />
+                    </div>
+                  )} 
+                  <form action="">
+                    <label htmlFor="file" className="flex items-center justify-center h-[40px] w-full border-2 border-[#468585] rounded-[10px] text-sm tracking-[1px] text-[#468585] font-semibold mb-[25px]">
+                      <div>
+                        Choose Photo
+                      </div>
+                    </label>
+                    <input type="file" name="file" id="file" className="hidden" onChange={handleFileChange}/>
+                  </form>
+                  <div className="text-xs text-[#50B498] tracking-[0.5px] mb-[16px]">
+                    Image size: max, 2 MB
+                  </div>
+                  <div className="text-xs text-[#50B498] tracking-[0.5px]">
+                    Image formats: .JPG, .JPEG, .PNG
+                  </div>
                 </div>
-                <div className="text-xs text-[#50B498] tracking-[0.5px]">
-                  Image formats: .JPG, .JPEG, .PNG
-                </div>
-              </div>
+              )}
             </div>
           </form>
         </div>

@@ -7,24 +7,32 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Booking() {
   // const updateDataEvent = useSelector((state) => state.event.data);
   const dataToken = useSelector((state) => state.auth.token);
   const [booking, setBooking] = React.useState([])
+  const navigate = useNavigate();
 
-    useEffect(() =>{
-      async function booking(){
-        const dataBooking = await fetch('http://localhost:8080/transactions/payment/',{
-          headers: {
-            Authorization: "Bearer " + dataToken,
-          }
-        })
-        const listBooking = await dataBooking.json()
-        setBooking(listBooking.result)
+  useEffect(() =>{
+    if (!dataToken) {
+      navigate("/login");
+      return;
+    }
+    datasBooking()
+  }, [dataToken, navigate])
+
+  async function datasBooking(){
+    const dataBooking = await fetch('http://localhost:8080/transactions/payment/',{
+      headers: {
+        Authorization: "Bearer " + dataToken,
       }
-      booking()
-    }, [])
+    })
+    const listBooking = await dataBooking.json()
+    setBooking(listBooking.result)
+  }
+
   return (
     <div className="md:bg-[#9CDBA6]">
       <div className="">

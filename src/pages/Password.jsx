@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 function Profile() {
-  const navigate = useNavigate();
   const dataToken = useSelector((state) => state.auth.token);
-  console.log(dataToken)
+  const navigate = useNavigate();
   useEffect(() => {
     if (!dataToken) {
       navigate("/login");

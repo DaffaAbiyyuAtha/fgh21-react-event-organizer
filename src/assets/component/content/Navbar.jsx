@@ -3,6 +3,7 @@ import Logo from "../content/Logo";
 import profile from "../../img/profile-circle.svg";
 import { Link, ScrollRestoration, useParams } from "react-router-dom";
 import toggle from "../../img/toggle.svg";
+import { FaBars } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 function Navbar() {
   const dataProfile = useSelector((state) => state.profile.data);
@@ -23,7 +24,7 @@ function Navbar() {
           <Logo />
         </Link>
         <button type="button" onClick={toggles} className="md:hidden">
-          <img src={toggle} alt="" />
+          {/* <FaBars /> */}
         </button>
       </div>
       <div

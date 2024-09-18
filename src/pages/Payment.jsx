@@ -11,6 +11,7 @@ import money from "../assets/img/money.svg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { 
   FaCreditCard,
   FaBuildingColumns,
@@ -30,6 +31,13 @@ function Payment() {
   const dataId = useSelector((state) => state.sectionSelector.eventId)
   const [selectedPayment, setSelectedPayment] = React.useState(null);
   const [message, setMessage] = React.useState("");
+
+  useEffect(() => {
+    if (totalPayment === 0) {
+      navigate("/");
+      return;
+    }
+  }, [totalPayment, navigate]);
 
   const handleCheckout = () => {
     if (dataToken === 0) {

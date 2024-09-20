@@ -34,7 +34,7 @@ import { addQty,
 
   async function datas() {
     const dataSection = await fetch(
-      "http://103.93.58.89:21211:8080/events/section/" + id.id
+      "http://103.93.58.89:21211/events/section/" + id.id
     );
     const listData = await dataSection.json();
     setData(listData.result);
@@ -42,7 +42,7 @@ import { addQty,
   }
 
   async function dataEvent() {
-    const dataEvent = await fetch("http://103.93.58.89:21211:8080/events/" + id.id);
+    const dataEvent = await fetch("http://103.93.58.89:21211/events/" + id.id);
     const listDataEvent = await dataEvent.json();
     dispatch(addEventTitle(listDataEvent.result.title));
   }

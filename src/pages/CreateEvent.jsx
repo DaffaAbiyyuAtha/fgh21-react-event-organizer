@@ -30,7 +30,7 @@ function CreateEvent() {
   
   useEffect(() => {
     async function createEventByUser() {
-      const response = await fetch("http://103.93.58.89:21211:8080/events/see_one_event", {
+      const response = await fetch("http://103.93.58.89:21211/events/see_one_event", {
         method: "GET",
         headers: {
           Authorization: "Bearer " + dataToken,

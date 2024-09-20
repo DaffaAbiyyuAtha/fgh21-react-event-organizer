@@ -21,7 +21,7 @@ function Wishlist() {
   }, [dataToken, navigate]);
 
   async function wish(){
-    const datawish = await fetch('http://103.93.58.89:21211:8080/wishlist/'+ id,{
+    const datawish = await fetch('http://103.93.58.89:21211/wishlist/'+ id,{
       headers: {
         Authorization: "Bearer " + dataToken,
       }
@@ -31,7 +31,7 @@ function Wishlist() {
   }
   
   // async function removeData(id) {
-  //   const dataRemove = fetch('http://103.93.58.89:21211:8080/wishlist/' + id, {
+  //   const dataRemove = fetch('http://103.93.58.89:21211/wishlist/' + id, {
   //     method: "DELETE",
   //     headers: {
   //       Authorization: "Bearer " + dataToken,

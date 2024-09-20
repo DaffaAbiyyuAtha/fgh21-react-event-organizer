@@ -29,7 +29,7 @@ function Login() {
     form.append("email", email);
     form.append("password", password);
 
-    fetch("http://103.93.58.89:21211:8080/auth/login", {
+    fetch("http://103.93.58.89:21211/auth/login", {
       method: "POST",
       body: form,
     })
@@ -38,7 +38,7 @@ function Login() {
         if (data.success === true) {
           dispatch(login(data.result.token));
           async function profile() {
-            const dataProfile = await fetch("http://103.93.58.89:21211:8080/profile/", {
+            const dataProfile = await fetch("http://103.93.58.89:21211/profile/", {
               headers: {
                 Authorization: "Bearer " + data.result.token,
               },

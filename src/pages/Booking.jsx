@@ -24,7 +24,7 @@ function Booking() {
   }, [dataToken, navigate])
 
   async function datasBooking(){
-    const dataBooking = await fetch('http://103.93.58.89:21211:8080/transactions/payment/',{
+    const dataBooking = await fetch('http://103.93.58.89:21211/transactions/payment/',{
       headers: {
         Authorization: "Bearer " + dataToken,
       }

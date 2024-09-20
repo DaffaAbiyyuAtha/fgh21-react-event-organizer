@@ -49,7 +49,7 @@ function Profile() {
     const form = new URLSearchParams();
     form.append("oldPassword", oldPassword)
     form.append("password", password);
-    const dataPasswords = await fetch("http://103.93.58.89:21211:8080/users/password/", {
+    const dataPasswords = await fetch("http://103.93.58.89:21211/users/password/", {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + dataToken,

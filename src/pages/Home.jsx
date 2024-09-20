@@ -47,25 +47,25 @@ function Home() {
     }
   }
   async function event() {
-    const dataHome = await fetch("http://103.93.58.89:21211:8080/events/", {});
+    const dataHome = await fetch("http://103.93.58.89:21211/events/", {});
     const listData = await dataHome.json();
     dispatch(loadEvent(listData.result));
   }
 
   async function categories() {
-    const dataHome = await fetch("http://103.93.58.89:21211:8080/categories/", {});
+    const dataHome = await fetch("http://103.93.58.89:21211/categories/", {});
     const listCategory = await dataHome.json();
     setCategory(listCategory.result);
   }
 
   async function locations() {
-    const dataHome = await fetch("http://103.93.58.89:21211:8080/locations/", {});
+    const dataHome = await fetch("http://103.93.58.89:21211/locations/", {});
     const listCategory = await dataHome.json();
     setLocation(listCategory.result);
   }
 
   async function partners() {
-    const dataHome = await fetch("http://103.93.58.89:21211:8080/partner/", {});
+    const dataHome = await fetch("http://103.93.58.89:21211/partner/", {});
     const listCategory = await dataHome.json();
     setPartner(listCategory.result);
   }

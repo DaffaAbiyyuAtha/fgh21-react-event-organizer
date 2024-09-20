@@ -47,7 +47,7 @@ function Login() {
     formData.append("email", email);
     formData.append("password", password);
     
-    fetch("http://103.93.58.89:21211:8080/auth/register", {
+    fetch("http://103.93.58.89:21211/auth/register", {
       method: "POST",
       body: formData,
     });

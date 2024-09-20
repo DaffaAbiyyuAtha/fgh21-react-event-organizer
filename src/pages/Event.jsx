@@ -25,7 +25,7 @@ function Event() {
   useEffect(() => {
     setWait(true)
     async function datas() {
-      const dataEvent = await fetch("http://103.93.58.89:21211:8080/events/" + id.id);
+      const dataEvent = await fetch("http://103.93.58.89:21211/events/" + id.id);
       const listData = await dataEvent.json();
       setData(listData.result);
       setWait(false)
@@ -34,7 +34,7 @@ function Event() {
     datas();
   }, []);
   async function addwish(){
-    const wishfetch = await fetch("http://103.93.58.89:21211:8080/wishlist/" + id.id,{
+    const wishfetch = await fetch("http://103.93.58.89:21211/wishlist/" + id.id,{
       method: "POST",
       headers: {
               Authorization: "Bearer " + dataToken,

@@ -39,7 +39,7 @@ docker build -t frontend .
 ```sh
 docker run -d -p 5000:5000 --name frontend frontend
 ```
-5. Open your google chrome and you can view the project at http://localhost:5000.
+5. Open your google chrome and you can view the project at http://103.93.58.89:21211:5000.
 6. If you want to run it full, I recommend running the backend https://github.com/DaffaAbiyyuAtha/fgh21-go-event-organizer
 
 ## Features

@@ -71,7 +71,7 @@ function Payment() {
     form.append("sectionId", section);
     form.append("ticketQuantity", quantity);
 
-    const dataProfile = await fetch("http://localhost:8080/transactions/", {
+    const dataProfile = await fetch("http://103.93.58.89:21211:8080/transactions/", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + dataToken,

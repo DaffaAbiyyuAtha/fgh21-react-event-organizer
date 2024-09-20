@@ -46,7 +46,7 @@ function Profile() {
     form.append("profession", profession);
     form.append("gender", gender);
     form.append("nationality_id", nationality);
-    const dataProfile = await fetch("http://localhost:8080/profile/update", {
+    const dataProfile = await fetch("http://103.93.58.89:21211:8080/profile/update", {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + dataToken,
@@ -63,7 +63,7 @@ function Profile() {
   }
 
   async function profileDatas() {
-    const response = await fetch("http://localhost:8080/profile/", {
+    const response = await fetch("http://103.93.58.89:21211:8080/profile/", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + dataToken,
@@ -75,7 +75,7 @@ function Profile() {
   }
 
   async function nationalitiesData() {
-    const nationalities = await fetch("http://localhost:8080/nationalities/", {});
+    const nationalities = await fetch("http://103.93.58.89:21211:8080/nationalities/", {});
     const dataNationality = await nationalities.json();
     setNationality(dataNationality.result);
   }
@@ -86,7 +86,7 @@ function Profile() {
     const body = new FormData()
     body.append( 'picture', file)
  
-    const response = await fetch('http://localhost:8080/profile/picture', {
+    const response = await fetch('http://103.93.58.89:21211:8080/profile/picture', {
       method: 'PATCH',
       headers: {
         Authorization: "Bearer " + dataToken,

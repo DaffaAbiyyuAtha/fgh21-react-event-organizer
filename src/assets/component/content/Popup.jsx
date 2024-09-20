@@ -27,7 +27,7 @@ function Popup() {
     form.append("description", description);
     form.append("image", image);
 
-    const dataProfile = await fetch("http://localhost:8080/events/update", {
+    const dataProfile = await fetch("http://103.93.58.89:21211:8080/events/update", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + dataToken,

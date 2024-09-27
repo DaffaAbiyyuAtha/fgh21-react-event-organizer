@@ -42,6 +42,7 @@ function Home() {
     const dataHome = await fetch("http://103.93.58.89:21211/events/filter?event=" + dataSearch, {});
     const listDataEvent = await dataHome.json();
     setEvents(listDataEvent.result);
+
   }
 
   async function categories() {
@@ -141,36 +142,42 @@ function Home() {
               placeholder="Search"
               className="flex-1 outline-none bg-transparent text-[#468585]"
             />
-            <button type="button" className="">
+            <button type="submit" className="">
               <FaMagnifyingGlass />
             </button>
           </div>
         </form>
-        <div className="flex gap-4 overflow-x-scroll mb-10 ml-10 md:ml-16">
-          {events.map((item) => {
-            return (
-              <Link to={`/events/${item.id}`}>
-                <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative">
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px]"
-                  />
-                  <div className="absolute bg-gradient-to-t from-black ... w-[260px] h-[376px]">
-                    <div className="flex flex-col justify-end h-full gap-6 ml-6 pb-7">
-                      <div className="text-white">
-                        {new Date(item.date).toLocaleDateString("en-CA")}
-                      </div>
-                      <div className="text-white">{item.title}</div>
-                      <div className="flex">
+        {events.length === 0 ? (
+          <div className="text-[#468585] py-16 text-xl text-center font-bold">
+            Event Not Found
+          </div>
+        ) : (
+          <div className="flex gap-4 overflow-x-scroll mb-10 ml-10 md:ml-16">
+            {events.map((item) => {
+              return (
+                <Link to={`/events/${item.id}`}>
+                  <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative">
+                    <img
+                      src={item.image}
+                      alt=""
+                      className="flex relative w-full h-full overflow-hidden rounded-[40px] mb-[52px]"
+                    />
+                    <div className="absolute bg-gradient-to-t from-black ... w-[260px] h-[376px]">
+                      <div className="flex flex-col justify-end h-full gap-6 ml-6 pb-7">
+                        <div className="text-white">
+                          {new Date(item.date).toLocaleDateString("en-CA")}
+                        </div>
+                        <div className="text-white">{item.title}</div>
+                        <div className="flex">
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
         <div className="w-full flex flex-col items-center">
           <div className="w-full text-center">
             <button

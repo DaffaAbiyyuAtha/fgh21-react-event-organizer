@@ -150,7 +150,7 @@ import { addQty,
         <Navbar />
       </div>
       <div className="">
-        <div className="flex flex-col md:flex-row md:mt-[48px] m-10 md:m16 md:mb-[100px] bg-[#DEF9C4] rounded-[30px] p-10">
+        <div className="flex flex-col md:flex-row md:mt-[48px] md:m16 md:mb-[100px] bg-[#DEF9C4] rounded-[30px] p-10">
           <div className="md:flex md:w-1/2 h-[486px] mr-[88px] hidden">
             <img src={stadionticket} alt="" className="w-auto h-full" />
           </div>

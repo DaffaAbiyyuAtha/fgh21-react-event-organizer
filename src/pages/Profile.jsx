@@ -126,11 +126,23 @@ function Profile() {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/3 w-full md:mr-[50px]">
                 <div className="flex justify-center md:hidden">
-                  <img
-                    src=""
-                    alt=""
-                    className="h-[136px] w-[136px] rounded-full mb-[50px]"
-                  />
+                  {dataProfile.profile[0].picture === null ? (
+                    <div className="flex justify-center">
+                      <img
+                        src={profile}
+                        alt=""
+                        className="h-[136px] w-[136px]  rounded-full mb-[50px]"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <img
+                        src={dataProfile.profile[0].picture}
+                        alt=""
+                        className="h-[136px] w-[136px]  rounded-full mb-[50px]"
+                      />
+                    </div>
+                  )} 
                 </div>
                 <div className="">
                   <table className="w-full">

@@ -13,7 +13,7 @@ import {
 
 function Footer() {
   return (
-    <div className="p-10 p-16 w-full pb-[36px] bg-[#DEF9C4]">
+    <div className="p-10 md:p-16 w-full pb-[36px] bg-[#DEF9C4]">
       <div className="flex flex-col md:flex-row gap-[10px] mb-[76px]">
         <div className="md:w-2/5">
           <div className="mb-[30px] ">

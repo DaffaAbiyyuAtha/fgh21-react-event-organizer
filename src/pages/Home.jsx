@@ -1,44 +1,27 @@
 import React, { useEffect } from "react";
-import NavbarHome from "../assets/component/content/NavbarHome";
 import Navbar from "../assets/component/content/Navbar";
 import Footer from "../assets/component/content/Footer";
-import people from "../assets/img/people.svg";
 import { BsDot } from "react-icons/bs";
-import museum from "../assets/img/museum.svg";
-import cars from "../assets/img/cars.jpg";
 import profile1 from "../assets/img/profile1.svg";
 import profile2 from "../assets/img/profile2.svg";
 import profile3 from "../assets/img/profile3.svg";
 import profile4 from "../assets/img/profile4.svg";
-import jakarta from "../assets/img/jakarta.svg";
-import bandung from "../assets/img/bandung.svg";
-import bali from "../assets/img/bali.svg";
-import aceh from "../assets/img/aceh.svg";
-import solo from "../assets/img/solo.svg";
-import jogja from "../assets/img/jogja.svg";
-import semarang from "../assets/img/semarang.svg";
-import arrowLeft from "../assets/img/arrow-left.svg";
-import arrowRight from "../assets/img/arrow-right.svg";
-import black1 from "../assets/img/black1.svg";
-import black2 from "../assets/img/black2.svg";
-import black3 from "../assets/img/black3.svg";
-import black4 from "../assets/img/black4.svg";
-import black5 from "../assets/img/black5.svg";
-import black6 from "../assets/img/black6.svg";
 import banner from "../assets/img/banner1.png";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loadEvent } from "../redux/reducers/event.js";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 
 function Home() {
-  const updateDataEvent = useSelector((state) => state.event.data);
+  // const updateDataEvent = useSelector((state) => state.event.data);
   const dispatch = useDispatch();
   const [add, setAll] = React.useState(true);
-  const [wait, setWait] = React.useState(false);
+  const [events, setEvents] = React.useState([]);
   const [category, setCategory] = React.useState([]);
   const [location, setLocation] = React.useState([]);
   const [partner, setPartner] = React.useState([]);
+  const [eventCategory, setEventCategory] = React.useState([]);
+
   function seeAll() {
     if (add === true) {
       setAll(false);
@@ -46,10 +29,19 @@ function Home() {
       setAll(true);
     }
   }
+
   async function event() {
     const dataHome = await fetch("http://103.93.58.89:21211/events/", {});
     const listData = await dataHome.json();
-    dispatch(loadEvent(listData.result));
+    setEvents(listData.result);
+  }
+
+  async function eventFilter(data) {
+    data.preventDefault();
+    const dataSearch = data.target.search.value;
+    const dataHome = await fetch("http://103.93.58.89:21211/events/filter?event=" + dataSearch, {});
+    const listDataEvent = await dataHome.json();
+    setEvents(listDataEvent.result);
   }
 
   async function categories() {
@@ -70,12 +62,29 @@ function Home() {
     setPartner(listCategory.result);
   }
 
+  async function eventCategories() {
+    const dataHome = await fetch("http://103.93.58.89:21211/categories/filter", {});
+    const listEventCategory = await dataHome.json();
+    setEventCategory(listEventCategory.result);
+  }
+
+  async function changeCategory(category) {
+    if(category == "All") {
+      category = ""
+    }
+    const dataHome = await fetch("http://103.93.58.89:21211/categories/filter?category=" + category, {});
+    const filterEventCategory = await dataHome.json();
+    setEventCategory(filterEventCategory.result);
+  }
+
   useEffect(() => {
     categories();
     event();
     locations();
     partners();
+    eventCategories();
   }, []);
+
   return (
     <div>
       <div className="">
@@ -122,8 +131,23 @@ function Home() {
             </div>
           </div>
         </div>
+        <form 
+          onSubmit={eventFilter}
+          className="md:px-16 px-10 pb-10">
+          <div className="flex w-full items-center border-[#468585] bg-transparent border-2 h-14 px-6 rounded-2xl text-[#468585] overflow-hidden ">
+            <input
+              name="search"
+              id="search"
+              placeholder="Search"
+              className="flex-1 outline-none bg-transparent text-[#468585]"
+            />
+            <button type="button" className="">
+              <FaMagnifyingGlass />
+            </button>
+          </div>
+        </form>
         <div className="flex gap-4 overflow-x-scroll mb-10 ml-10 md:ml-16">
-          {updateDataEvent.map((item) => {
+          {events.map((item) => {
             return (
               <Link to={`/events/${item.id}`}>
                 <div className="flex w-[260px] flex-shrink-0 h-[376px] overflow-hidden rounded-[40px] relative">
@@ -139,21 +163,6 @@ function Home() {
                       </div>
                       <div className="text-white">{item.title}</div>
                       <div className="flex">
-                        {/* {item.attendees.map((pict) => {
-                          return (
-                            <div className="flex mb-[8px]">
-                              <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                                <img
-                                  src={
-                                    "https://wsw6zh-8888.csb.app/" +
-                                    pict.picture
-                                  }
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          );
-                        })} */}
                       </div>
                     </div>
                   </div>
@@ -217,12 +226,14 @@ function Home() {
               Browse Events By Category
             </div>
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-7 w-full justify-between gap-10 m-10 md:m-16 text-center">
+          <div className="grid grid-cols-3 md:grid-cols-8 w-full justify-between gap-10 m-10 px-10 md:m-16 text-center">
             {category.map((items) => {
               return (
                 <button
+                  onClick={() => changeCategory(items.name)}
                   type="button"
                   className="text-[#50B498] hover:text-[#468585] hover:underline hover:font-bold font-semibold"
+                  value={items.name}
                 >
                   {items.name}
                 </button>
@@ -230,98 +241,48 @@ function Home() {
             })}
           </div>
         </div>
-        <div className="flex gap-6 items-center md:justify-center m-10 overflow-x-scroll md:overflow-x-visible">
-          <div className="md:w-[45px] md:h-[45px] md:shadow-md md:bg-[#DEF9C4] md:flex text-[#468585] items-center justify-center rounded-md hidden">
-            <FaArrowLeft />
+        {eventCategory.length === 0 ? (
+          <div className="text-[#468585] pt-16 text-xl text-center font-bold">
+            Event Not Found
           </div>
-          <div className="relative w-[300px] h-[350px] rounded-3xl overflow-hidden ml-8 flex-shrink-0">
-            <img src={cars} alt="" />
-            <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4 pb-4">
-              <div className="flex mb-[8px] mt-[-16px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile1} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile2} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile3} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
-                  <img src={profile4} alt="" />
-                  <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
-                    62+
+        ) : (
+          <div className="flex gap-6 items-center m-10 overflow-x-scroll">
+            {eventCategory.map((item) => {
+              return (
+                <Link to={`/events/${item.id}`}>
+                  <div className="relative w-[300px] h-[380px] rounded-3xl overflow-hidden ml-8 flex-shrink-0">
+                    <img src={item.image} alt="" className="w-full h-full"/>
+                    <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4">
+                      <div className="flex mb-[8px] mt-[-16px]">
+                        <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
+                          <img src={profile1} alt="" />
+                        </div>
+                        <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
+                          <img src={profile2} alt="" />
+                        </div>
+                        <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
+                          <img src={profile3} alt="" />
+                        </div>
+                        <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
+                          <img src={profile4} alt="" />
+                          <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
+                            62+
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-col text-[#9CDBA6] gap-2 mt-2">
+                        <div>{item.date}</div>
+                        <div className="font-semibold text-2xl tracking-wider">
+                          {item.title}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="flex flex-col text-[#9CDBA6] gap-2 mt-7">
-                <div>Wed, 15 Nov, 4:00 PM</div>
-                <div className="font-semibold text-2xl tracking-wider">
-                  Sights & Sounds Exhibition
-                </div>
-              </div>
-            </div>
+                </Link>
+              )
+            })}
           </div>
-          <div className="relative w-[300px] h-[350px] rounded-3xl overflow-hidden ml-8 flex-shrink-0">
-            <img src={cars} alt="" />
-            <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4 pb-4">
-              <div className="flex mb-[8px] mt-[-16px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile1} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile2} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile3} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
-                  <img src={profile4} alt="" />
-                  <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
-                    62+
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col text-[#9CDBA6] gap-2 mt-7">
-                <div>Wed, 15 Nov, 4:00 PM</div>
-                <div className="font-semibold text-2xl tracking-wider">
-                  Sights & Sounds Exhibition
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="relative w-[300px] h-[350px] rounded-3xl overflow-hidden ml-8 flex-shrink-0">
-            <img src={cars} alt="" />
-            <div className="absolute bg-[#468585] w-full h-[162px] bottom-0 px-4 pb-4">
-              <div className="flex mb-[8px] mt-[-16px]">
-                <div className="h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile1} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile2} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] overflow-hidden">
-                  <img src={profile3} alt="" />
-                </div>
-                <div className="ml-[-8px] h-[32px] w-[32px] bg-black rounded-full border-2 border-solid border-[#468585] relative overflow-hidden">
-                  <img src={profile4} alt="" />
-                  <div className="absolute bg-[rgba(156,219,166,0.5)] h-full w-full text-[#9CDBA6] text-sm flex items-center justify-center top-0 left-0">
-                    62+
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col text-[#9CDBA6] gap-2 mt-7">
-                <div>Wed, 15 Nov, 4:00 PM</div>
-                <div className="font-semibold text-2xl tracking-wider">
-                  Sights & Sounds Exhibition
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="md:w-[45px] md:h-[45px] md:shadow-md text-[#9CDBA6]  md:bg-[#468585] md:flex  items-center justify-center rounded-md hidden">
-            <FaArrowRight />
-          </div>
-        </div>
+        )}
       </div>
       <div className="bg-[#373A42] p-10 md:p-16 flex flex-col items-center mb-16">
         <div className="bg-[#979797] h-[30px] w-[150px] rounded-full text-xs tracking-[3px] font-semibold text-white flex gap-[10px] items-center justify-center before:content-['\2501'] mb-[25px] ">

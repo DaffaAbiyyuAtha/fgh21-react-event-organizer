@@ -86,7 +86,7 @@ function Payment() {
     <div className="md:bg-[#9CDBA6]">
       <Navbar />
       <div className="">
-        <form onSubmit={pay} className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-[#DEF9C4] rounded-[30px] p-10">
+        <form onSubmit={pay} className="flex flex-col md:flex-row mt-[48px] m-10 md:m-16 mb-[100px] bg-[#DEF9C4] rounded-[30px] md:p-10">
           <div className="md:w-1/2 h-[486px] md:mr-[88px] mb-20">
             <div className="text-[#468585] tracking-[1px] font-semibold text-xl mb-[50px]">
               Payment Method

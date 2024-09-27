@@ -7,7 +7,6 @@ import { FaBars } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 function Navbar() {
   const dataProfile = useSelector((state) => state.profile.data);
-  console.log(dataProfile)
   const tokens = useSelector((state) => state.auth.token);
   const [open, setOpen] = React.useState(true);
   function toggles() {
@@ -24,7 +23,7 @@ function Navbar() {
           <Logo />
         </Link>
         <button type="button" onClick={toggles} className="md:hidden">
-          {/* <FaBars /> */}
+          <FaBars className="text-[#468585]"/>
         </button>
       </div>
       <div

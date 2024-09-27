@@ -100,7 +100,7 @@ function Event() {
             </div>
           </div>
         </div>
-        <div className="flex mt-[48px] md:m-16 m-10 bg-[#DEF9C4] rounded-[30px] p-10 md:p-24 justify-center ">
+        <div className="flex mt-[48px] md:m-16 bg-[#DEF9C4] rounded-[30px] p-10 md:p-24 justify-center ">
           <div className="md:flex flex-col md:w-2/5 h-[486px] mr-[88px] hidden justify-center ">
             <div className="flex max-w-80 w-full h-full overflow-hidden rounded-[40px] mb-[52px] justify-center">
               <img

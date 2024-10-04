@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../assets/component/content/Navbar";
 import Footer from "../assets/component/content/Footer";
 import Sidebar from "../assets/component/content/Sidebar";
+import SidebarUser from "../assets/component/content/SidebarUser";
 import profile from "../assets/img/profile-circle.svg";
 import arrowDown from "../assets/img/arrow-down.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,12 +14,22 @@ function Profile() {
   const dispatch = useDispatch();
   const dataToken = useSelector((state) => state.auth.token);
   const dataProfile = useSelector((state) => state.profile.data);
+  console.log(dataProfile)
   const [file, setFile] = React.useState(null);
   const [preview, setPreview] = React.useState(null);
   const [profiles, setProfile] = React.useState([]);
   const [nationality, setNationality] = React.useState([]);
   const [message, setMessage] = React.useState(true);
-  
+  const [open, setOpen] = React.useState(true);
+
+  function toggles() {
+    if (open === true) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }
+
   useEffect(() => {
     if (!dataToken) {
       navigate("/login");
@@ -71,7 +82,6 @@ function Profile() {
     });
     const profileData = await response.json();
     dispatch(datas(profileData.result));
-    console.log(profileData)
   }
 
   async function nationalitiesData() {
@@ -116,7 +126,28 @@ function Profile() {
         <Navbar />
       </div>
       <div className="md:flex m-10 md:m-16">
-        <Sidebar />
+        <button type="button" onClick={toggles} className="md:hidden mb-[28px] flex items-center gap-2 border-2 p-1 rounded-lg border-[#468585] text-[#468585]">
+          <div className="">menu</div>
+        </button>
+        <div
+          className={
+            open
+              ? "md:flex gap-6 hidden"
+              : ""
+          }
+        >
+          <div className="">
+            {dataProfile?.user && (
+              <div className="">
+                {dataProfile.user.userRole === 1 ? (
+                  <Sidebar />
+                ) : (
+                  <SidebarUser />
+                )}
+              </div>
+            )}
+          </div>
+        </div>
         <div className="flex-1 bg-[#DEF9C4] rounded-[30px] md:p-10">
           <div className="mb-[50px] text-[#468585] text-xl font-semibold tracking-[1px]">
             Profile
@@ -125,25 +156,27 @@ function Profile() {
           <form onSubmit={updateProfiles}>
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/3 w-full md:mr-[50px]">
-                <div className="flex justify-center md:hidden">
-                  {dataProfile.profile[0].picture === null ? (
-                    <div className="flex justify-center">
-                      <img
-                        src={profile}
-                        alt=""
-                        className="h-[136px] w-[136px]  rounded-full mb-[50px]"
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center">
-                      <img
-                        src={dataProfile.profile[0].picture}
-                        alt=""
-                        className="h-[136px] w-[136px]  rounded-full mb-[50px]"
-                      />
-                    </div>
-                  )} 
-                </div>
+                {dataProfile?.profile && (
+                  <div className="flex justify-center md:hidden">
+                    {dataProfile.profile[0].picture === null ? (
+                      <div className="flex justify-center">
+                        <img
+                          src={profile}
+                          alt=""
+                          className="h-[136px] w-[136px]  rounded-full mb-[50px]"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex justify-center">
+                        <img
+                          src={dataProfile.profile[0].picture}
+                          alt=""
+                          className="h-[136px] w-[136px]  rounded-full mb-[50px]"
+                        />
+                      </div>
+                    )} 
+                  </div>
+                )}
                 <div className="">
                   <table className="w-full">
                     <tbody>

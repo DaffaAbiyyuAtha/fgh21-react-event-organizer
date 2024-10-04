@@ -6,11 +6,21 @@ import Popup from "../assets/component/content/Popup";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CreateEvent() {
   const dataToken = useSelector((state) => state.auth.token);
   const [show, setShow] = React.useState(true);
   const [event, setEvent] = React.useState([]);
+  const [open, setOpen] = React.useState(true);
+
+  function toggles() {
+    if (open === true) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -47,7 +57,18 @@ function CreateEvent() {
         <Navbar />
       </div>
       <div className="md:flex m-10 md:m-16">
-        <Sidebar />
+      <button type="button" onClick={toggles} className="md:hidden mb-[28px] flex items-center gap-2 border-2 p-1 rounded-lg border-[#468585] text-[#468585]">
+          <div className="">menu</div>
+        </button>
+        <div
+          className={
+            open
+              ? "md:flex gap-6 hidden"
+              : ""
+          }
+        >
+          <Sidebar />
+        </div>
         <div className="flex-1 bg-[#DEF9C4] rounded-[30px] md:p-10">
           <div className="flex justify-between items-center ">
             <div className="text-xl text-[#468585] font-semibold tracking-[1px]">
@@ -64,12 +85,12 @@ function CreateEvent() {
           </div>
           {event.length === 0 ? (
             <div className="h-full w-full">
-              <div className="flex flex-col items-center justify-center h-full gap-[16px] ">
+              <div className="flex py-10 flex-col items-center justify-center h-full gap-[16px] ">
                 <div className="font-semibold tracking-[1px] text-2xl text-[#468585]">
                   No Created Event
                 </div>
                 <div className="font-medium tracking-[0.5px] text-center text-sm text-[#50B498]">
-                You haven't created an event yet, please create an event by clicking in the top right corner
+                  You haven't created an event yet, please create an event by clicking in the top right corner
                 </div>
               </div>
             </div>
@@ -90,9 +111,11 @@ function CreateEvent() {
                       <div>Jakarta, Indonesia</div>
                       <div>{item.date}</div>
                     </div>
-                    <div className="text-sm text-[#468585] underline mt-3">
-                      Detail
-                    </div>
+                    <Link to={`/events/${item.id}`}>
+                      <div className="text-sm text-[#468585] underline mt-3">
+                        Detail
+                      </div>
+                    </Link>
                   </div>
                 </div>
                 );

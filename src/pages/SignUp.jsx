@@ -14,11 +14,7 @@ import Loading from "../assets/component/content/Loading";
 function Login() {
   const navigate = useNavigate();
   const [wait, setWait] = React.useState(false);
-  const [name, setName] = React.useState(false);
-  const [email, setEmail] = React.useState(false);
-  const [passw, setPass] = React.useState(false);
-  const [confPass, setConfPass] = React.useState(false);
-  const [success, setSuccess] = React.useState("");
+  const [message, setMessage] = React.useState(true);
 
   let [pass, setPassword] = React.useState("password");
   function changePassword() {
@@ -42,10 +38,54 @@ function Login() {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPass = e.target.confirmPass.value;
+    const accept = e.target.accept.checked;
+    const role = 2
+
+    if (!name) {
+      setMessage("You Must Fill the Full Name!");
+      return;
+    }
+    
+    if (name.length < 5) {
+      setMessage("Name must be at least 5 characters long!");
+      return;
+    }
+
+    if (!email) {
+      setMessage("You Must Fill the Email!");
+      return;
+    }
+
+    if (!password) {
+      setMessage("You Must Fill the Password!");
+      return;
+    }
+
+    if (password.length < 8) {
+      setMessage("Password must be at least 8 characters long!");
+      return;
+    }
+
+    if (!confirmPass) {
+      setMessage("You Must Fill the Confirm Password!");
+      return;
+    }
+  
+    if (password !== confirmPass) {
+      setMessage("Password and Confirm Password must match!");
+      return;
+    }
+
+    if (!accept) {
+      setMessage("You must accept the terms and conditions!");
+      return;
+    }
+
     const formData = new URLSearchParams();
     formData.append("full_name", name);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("roleUser", role)
     
     fetch("http://103.93.58.89:21211/auth/register", {
       method: "POST",
@@ -53,46 +93,6 @@ function Login() {
     });
     setWait(true);
     navigate("/login");
-   
-    // if (name !== "") {
-    //   setName(true)
-    // } else {
-    //   setName(false)
-    // }
-    // if (email !== "") {
-    //   setEmail(true)
-    // } else {
-    //   setEmail(false)
-    // }
-    // if (password !== "") {
-    //   setPass(true)
-    // } else {
-    //   setPass(false)
-    // }
-    // if (confirmPass !== password) {
-    //   setConfPass(true)
-    // } else {
-    //   setConfPass(false)
-    // }
-
-  //   if (name !== "") {
-  //     if (email !== "") {
-  //       if (password !== "") {
-  //         if (confirmPass === password) {
-  //           navigate("/login");
-  //           setSuccess("Registration Success! Please Log In");
-  //         } else {
-  //           setConfPass("Password and Confirm Password Must same!");
-  //         }
-  //       } else {
-  //         setPass("You Must Fill the Password!");
-  //       }
-  //     } else {
-  //       setEmail("You Must Fill the Email!");
-  //     }
-  //   } else {
-  //     setName("You Must Fill the Full Name!");
-  //   }
   }
   
   return (
@@ -118,6 +118,7 @@ function Login() {
               Log In
             </Link>
           </div>
+          <div className="text-red-600 mb-3">{message}</div>
           <form onSubmit={processLogin}>
             <div className="flex justify-center border-[#468585] flex-col gap-[15px]">
               <div className="border-[#468585] bg-transparent border-2 rounded-2xl">
@@ -176,7 +177,7 @@ function Login() {
               </div>
               <div className="flex text-[#50B498] gap-2 items-center">
                 <div>
-                  <input type="checkbox" name="accept" id="accept" />
+                  <input type="checkbox" name="accept" id="accept" value="1"/>
                 </div>
                 <div className="">
                   <label
@@ -219,14 +220,6 @@ function Login() {
       <div className="">
         <Footer />
       </div>
-      {/* <div className="flex justify-center items-center w-full h-screen bg-black/50">
-        <div className="flex flex-col gap-10 justify-center items-center w-96 h-80 font-bold text-xl text-[#468585] bg-[#DEF9C4] rounded-xl">
-          <div className="">{success}</div>
-          <button type="button">
-            <FaCircleCheck />
-          </button>
-        </div>
-      </div> */}
       {wait ? <Loading /> : ""}
     </div>
   );

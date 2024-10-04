@@ -39,13 +39,25 @@ function Navbar() {
         >
           <div className="">Home</div>
         </Link>
-        <Link to="/my-create-event">
-          <div className="text-[#50B498] text-sm font-semibold tracking-wider">
-            Create Event
+        {tokens === null ? (
+          <div className="hidden"></div>
+        ) : (
+          <div className="">
+            {dataProfile.user.userRole === 1 ? (
+              <Link to="/my-create-event">
+                <div className="text-[#50B498] text-sm font-semibold tracking-wider">
+                  Create Event
+                </div>
+              </Link>
+            ) : (
+              <div className="hidden"></div>
+            )}
           </div>
-        </Link>
+        )}
         <div className="text-[#50B498] text-sm font-semibold tracking-wider">
-          Location
+          <a href="/#location">
+            Location
+          </a>
         </div>
       </div>
       <div className="">

@@ -78,14 +78,6 @@ function Sidebar() {
           <div className="">Change Password</div>
         </div>
       </Link>
-      <Link to="/my-create-event">
-        <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#468585] md:text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
-          <div className="">
-            <FaCirclePlus />
-          </div>
-          <div className="">Create Event</div>
-        </div>
-      </Link>
       <Link to="/my-booking">
         <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#468585] md:text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
           <div className="">
@@ -102,14 +94,12 @@ function Sidebar() {
           <div className="">My Wishlist</div>
         </div>
       </Link>
-      <Link to="/account-settings">
-        <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#468585] md:text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
-          <div className="">
-            <FaGear />
-          </div>
-          <div className="">Account Settings</div>
+      <div className="hover:text-[#468585] items-center flex gap-[24px] text-[#468585] md:text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
+        <div className="">
+          <FaGear />
         </div>
-      </Link>
+        <div className="">Settings</div>
+      </div>
       <div className="hover:text-red-600 items-center flex gap-[24px] text-[#468585] md:text-[#DEF9C4] tracking-[1px] font-semibold mb-[28px]">
         <div className="">
           <FaRightFromBracket />

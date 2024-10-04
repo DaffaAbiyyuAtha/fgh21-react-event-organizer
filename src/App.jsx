@@ -10,6 +10,7 @@ import Booking from "./pages/Booking";
 import Wishlist from "./pages/Wishlist";
 import Popup from "./assets/component/content/Popup";
 import Home from "./pages/Home";
+import Account from "./pages/Account"
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateEvent from "./pages/CreateEvent";
 import { Provider } from "react-redux";
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/pop-up",
     element: <Popup />,
+  },
+  {
+    path: "/account-settings",
+    element: <Account />,
   },
 ]);
 

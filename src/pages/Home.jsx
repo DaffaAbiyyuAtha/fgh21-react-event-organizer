@@ -21,6 +21,7 @@ function Home() {
   const [location, setLocation] = React.useState([]);
   const [partner, setPartner] = React.useState([]);
   const [eventCategory, setEventCategory] = React.useState([]);
+  const dataToken = useSelector((state) => state.auth.token);
 
   function seeAll() {
     if (add === true) {
@@ -30,6 +31,18 @@ function Home() {
     }
   }
 
+  async function profileDatas() {
+    const response = await fetch("http://103.93.58.89:21211/profile/", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + dataToken,
+      },
+    });
+    const profileData = await response.json();
+    // dispatch(datas(profileData.result));
+    console.log(profileData)
+  }
+  
   async function event() {
     const dataHome = await fetch("http://103.93.58.89:21211/events/", {});
     const listData = await dataHome.json();
@@ -42,7 +55,6 @@ function Home() {
     const dataHome = await fetch("http://103.93.58.89:21211/events/filter?event=" + dataSearch, {});
     const listDataEvent = await dataHome.json();
     setEvents(listDataEvent.result);
-
   }
 
   async function categories() {
@@ -79,6 +91,7 @@ function Home() {
   }
 
   useEffect(() => {
+    profileDatas()
     categories();
     event();
     locations();
@@ -187,7 +200,7 @@ function Home() {
               See All
             </button>
           </div>
-          <div className="w-full mb-[175px]">
+          <div className="w-full mb-[175px]" id="location">
             <div className="mx-10 md:mx-16 bg-[#468585] rounded-3xl">
               <div className="p-16">
                 <div className="flex justify-center mb-6 text-[#DEF9C4] items-center gap-4 w-[160px] h-[30px] text-center bg-[#50B498] rounded-xl ">

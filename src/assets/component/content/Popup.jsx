@@ -52,7 +52,31 @@ function Popup() {
         });
         const json = await response.json()
         if (json.success) {
-          navigate(0);
+          const form2 = new URLSearchParams();
+          const fields = [
+            { name: e.target.namePrice.value, price: e.target.price.value, quantity: e.target.quantity.value },
+            { name: e.target.namePrice2.value, price: e.target.price2.value, quantity: e.target.quantity2.value },
+            { name: e.target.namePrice3.value, price: e.target.price3.value, quantity: e.target.quantity3.value },
+          ];
+
+          fields.forEach((field, index) => {
+            if (field.name && field.price && field.quantity) {
+              form2.append(`name${index + 1}`, field.name);
+              form2.append(`price${index + 1}`, field.price);
+              form2.append(`quantity${index + 1}`, field.quantity);
+            }
+          });
+          form2.append("eventId", eventId);
+          const dataPrice = await fetch("http://103.93.58.89:21211/saction", {
+            method: "POST",
+            body: form2,
+          });
+
+          const listDatas = await dataPrice.json();
+          console.log(listDatas)
+          setMessage(listDatas.message)
+          window.alert(listDatas.message)
+        }
         }
       }
       await uploadImage();
@@ -69,12 +93,6 @@ function Popup() {
       // const quantity3 = e.target.quantity3.value;
 
 
-      // const form2 = new URLSearchParams();
-      // const fields = [
-      //   { name: e.target.namePrice.value, price: e.target.price.value, quantity: e.target.quantity.value },
-      //   { name: e.target.namePrice2.value, price: e.target.price2.value, quantity: e.target.quantity2.value },
-      //   { name: e.target.namePrice3.value, price: e.target.price3.value, quantity: e.target.quantity3.value },
-      // ];
       // form2.append("name", name1);
       // form2.append("price", price1);
       // form2.append("quantity", quantity1);
@@ -85,25 +103,6 @@ function Popup() {
       // form2.append("name", price3);
       // form2.append("quantity", quantity3);
 
-
-      // fields.forEach((field, index) => {
-      //   if (field.name && field.price && field.quantity) {
-      //     form2.append(`name${index + 1}`, field.name);
-      //     form2.append(`price${index + 1}`, field.price);
-      //     form2.append(`quantity${index + 1}`, field.quantity);
-      //   }
-      // });
-      // form2.append("eventId", eventId);
-      // const dataPrice = await fetch("http://103.93.58.89:21211/saction", {
-      //   method: "POST",
-      //   body: form2,
-      // });
-
-      // const listDatas = await dataPrice.json();
-      // console.log(listDatas)
-      // setMessage(listDatas.message)
-      // window.alert(listDatas.message)
-    }
   }
 
   function price2() {

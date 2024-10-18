@@ -14,7 +14,6 @@ function Profile() {
   const dispatch = useDispatch();
   const dataToken = useSelector((state) => state.auth.token);
   const dataProfile = useSelector((state) => state.profile.data);
-  console.log(dataProfile)
   const [file, setFile] = React.useState(null);
   const [preview, setPreview] = React.useState(null);
   const [profiles, setProfile] = React.useState([]);
@@ -67,10 +66,10 @@ function Profile() {
     const listData = await dataProfile.json();
     setMessage(listData.message);
     setProfile(listData.result);
-    if (listData.success) {
-      uploadImage()
-      profileDatas()
+    if (file) {
+      await uploadImage();
     }
+    profileDatas()
   }
 
   async function profileDatas() {

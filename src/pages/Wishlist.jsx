@@ -7,6 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Wishlist() { 
   const dataToken = useSelector((state) => state.auth.token);
@@ -129,9 +130,11 @@ function Wishlist() {
                           <div>Jakarta, Indonesia</div>
                           <div>{data.event.date}</div>
                         </div>
-                        <div className="text-sm text-[#468585] underline mt-3">
-                          Detail
-                        </div>
+                        <Link to={`/events/${data.event.id}`} >
+                          <div className="text-sm text-[#468585] underline mt-3">
+                            Detail
+                          </div>
+                        </Link>
                       </div>
                     </div>
                     <button className="content-center">

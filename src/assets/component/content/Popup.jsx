@@ -22,16 +22,82 @@ function Popup() {
   }
   const [message, setMessage] = React.useState(true);
   
+  // async function CreateEvent(e) {
+  //   e.preventDefault();
+  //   const title = e.target.name.value;
+  //   const date = e.target.date.value;
+  //   const description = e.target.des.value;
+  //   const form = new URLSearchParams();
+  //   form.append("title", title);
+  //   form.append("date", date);
+  //   form.append("description", description);
+
+  //   const dataEvents = await fetch("http://103.93.58.89:21211/events/update", {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: "Bearer " + dataToken,
+  //     },
+  //     body: form,
+  //   });
+  //   const listData = await dataEvents.json();
+  //   if (listData.success) {
+  //     // setIdEvents(listData.result.eventId);
+  //     const eventId = listData.result.eventId
+  //     async function uploadImage() {
+  //       const body = new FormData()
+  //       body.append( 'image', file)
+  //       const response = await fetch('http://103.93.58.89:21211/events/image/' + eventId, {
+  //         method: 'PATCH',
+  //         body,
+  //       });
+  //       const json = await response.json()
+  //       if (json.success) {
+  //         navigate(0)
+  //       }
+  //     }
+  //     await uploadImage();
+  //   }
+    
+  //   // if (json.success) {
+  //   //   const form2 = new URLSearchParams();
+  //   //   const fields = [
+  //   //     { name: e.target.namePrice.value, price: e.target.price.value, quantity: e.target.quantity.value },
+  //   //     { name: e.target.namePrice2.value, price: e.target.price2.value, quantity: e.target.quantity2.value },
+  //   //     { name: e.target.namePrice3.value, price: e.target.price3.value, quantity: e.target.quantity3.value },
+  //   //   ];
+
+  //   //   fields.forEach((field, index) => {
+  //   //     if (field.name && field.price && field.quantity) {
+  //   //       form2.append(`name${index + 1}`, field.name);
+  //   //       form2.append(`price${index + 1}`, field.price);
+  //   //       form2.append(`quantity${index + 1}`, field.quantity);
+  //   //     }
+  //   //   });
+  //   //   form2.append("eventId", eventId);
+  //   //   const dataPrice = await fetch("http://103.93.58.89:21211/saction", {
+  //   //     method: "POST",
+  //   //     body: form2,
+  //   //   });
+
+  //   //   const listDatas = await dataPrice.json();
+  //   //   console.log(listDatas)
+  //   //   setMessage(listDatas.message)
+  //   //   window.alert(listDatas.message)
+  //   // }
+
+  // }
+
   async function CreateEvent(e) {
     e.preventDefault();
     const title = e.target.name.value;
     const date = e.target.date.value;
     const description = e.target.des.value;
+    
     const form = new URLSearchParams();
     form.append("title", title);
     form.append("date", date);
     form.append("description", description);
-
+  
     const dataEvents = await fetch("http://103.93.58.89:21211/events/update", {
       method: "POST",
       headers: {
@@ -40,51 +106,56 @@ function Popup() {
       body: form,
     });
     const listData = await dataEvents.json();
+  
     if (listData.success) {
-      // setIdEvents(listData.result.eventId);
-      const eventId = listData.result.eventId
+      const eventId = listData.result.eventId;
+  
       async function uploadImage() {
-        const body = new FormData()
-        body.append( 'image', file)
+        const body = new FormData();
+        body.append('image', file);
         const response = await fetch('http://103.93.58.89:21211/events/image/' + eventId, {
           method: 'PATCH',
           body,
         });
-        const json = await response.json()
+        const json = await response.json();
+  
         if (json.success) {
-          navigate(0)
+          const form2 = new URLSearchParams();
+          const sections = [
+            { name: e.target.namePrice.value, price: e.target.price.value, quantity: e.target.quantity.value },
+            { name: e.target.namePrice2.value, price: e.target.price2.value, quantity: e.target.quantity2.value },
+            { name: e.target.namePrice3.value, price: e.target.price3.value, quantity: e.target.quantity3.value },
+          ];
+  
+          sections.forEach((section, index) => {
+            if (section.name && section.price && section.quantity) {
+              form2.append(`sectionId[${index}]`, section.name);
+              form2.append(`ticketQuantity[${index}]`, section.quantity);
+              form2.append(`price[${index}]`, section.price);
+            }
+          });
+  
+          form2.append("eventId", eventId);
+  
+          const dataPrice = await fetch("http://103.93.58.89:21211/saction", {
+            method: "POST",
+            body: form2,
+          });
+  
+          const listDatas = await dataPrice.json();
+          console.log(listDatas)
+          console.log(listDatas);
+          setMessage(listDatas.message);
+          window.alert(listDatas.message);
+  
+          if (listDatas.success) {
+            navigate(0);
+          }
         }
       }
+  
       await uploadImage();
     }
-    
-    // if (json.success) {
-    //   const form2 = new URLSearchParams();
-    //   const fields = [
-    //     { name: e.target.namePrice.value, price: e.target.price.value, quantity: e.target.quantity.value },
-    //     { name: e.target.namePrice2.value, price: e.target.price2.value, quantity: e.target.quantity2.value },
-    //     { name: e.target.namePrice3.value, price: e.target.price3.value, quantity: e.target.quantity3.value },
-    //   ];
-
-    //   fields.forEach((field, index) => {
-    //     if (field.name && field.price && field.quantity) {
-    //       form2.append(`name${index + 1}`, field.name);
-    //       form2.append(`price${index + 1}`, field.price);
-    //       form2.append(`quantity${index + 1}`, field.quantity);
-    //     }
-    //   });
-    //   form2.append("eventId", eventId);
-    //   const dataPrice = await fetch("http://103.93.58.89:21211/saction", {
-    //     method: "POST",
-    //     body: form2,
-    //   });
-
-    //   const listDatas = await dataPrice.json();
-    //   console.log(listDatas)
-    //   setMessage(listDatas.message)
-    //   window.alert(listDatas.message)
-    // }
-
   }
 
   function price2() {

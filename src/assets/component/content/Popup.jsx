@@ -14,11 +14,7 @@ function Popup() {
   const [price, setPrice] = React.useState(true);
   const [price4, setPrice4] = React.useState(true);
   function popUps() {
-    if (show === true) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
+    navigate(0)
   }
   const [message, setMessage] = React.useState(true);
   

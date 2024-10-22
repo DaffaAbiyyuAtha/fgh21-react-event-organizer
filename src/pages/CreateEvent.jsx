@@ -74,14 +74,15 @@ function CreateEvent() {
             <div className="text-xl text-[#468585] font-semibold tracking-[1px]">
               Create Event
             </div>
-            <div className="flex items-center justify-center rounded-2xl gap-4 w-32 h-12 bg-[#468585]">
-              <button
-                onClick={popUps}
+            <button 
+              onClick={popUps}
+              className="flex items-center justify-center rounded-2xl gap-4 w-32 h-12 bg-[#468585]">
+              <div
                 className="text-[#DEF9C4] font-medium tracking-widest text-xs"
               >
                 Create
-              </button>
-            </div>
+              </div>
+            </button>
           </div>
           {event.length === 0 ? (
             <div className="h-full w-full">
